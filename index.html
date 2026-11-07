@@ -75,14 +75,14 @@ section{padding:30px 0;scroll-margin-top:90px}
 .section-title{font-size:1.65rem;color:var(--heading);margin:0 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .section-title small{font-size:.8rem;color:var(--muted);font-weight:500}
 
-/* ============ HERO ============ */
+/* ============ HERO & WATER CANVAS ============ */
 .hero{display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:28px;padding:25px 0 20px;position:relative;overflow:hidden;border-radius:20px}
 .hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.25;color:var(--heading);margin:0 0 12px}
 .hero p{color:var(--ink)}
 .logo{width:100%;max-width:420px;display:block;border-radius:50%;margin:auto;box-shadow:0 12px 35px #59204c24;background:#fff;animation:heroFloat 6s ease-in-out infinite}
 @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-/* 💧 water drops canvas */
+/* Water drops canvas */
 .water-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;border-radius:20px}
 .hero > div,
 .hero > .logo,
@@ -115,7 +115,7 @@ section{padding:30px 0;scroll-margin-top:90px}
 .empty p{color:var(--muted);text-align:center;margin:0}
 
 /* ==========================================
-   FLAGS SHOWCASE — animated
+   FLAGS SHOWCASE
    ========================================== */
 .flags-section{
   position:relative;padding:60px 20px 70px;border-radius:24px;overflow:hidden;
@@ -124,8 +124,6 @@ section{padding:30px 0;scroll-margin-top:90px}
   background:linear-gradient(160deg,#1a0b1f 0%,#2c1246 55%,#4d0f3b 100%);
 }
 [data-theme="dark"] .flags-section{background:linear-gradient(160deg,#0a0510 0%,#1a0824 55%,#2e0a24 100%)}
-.flags-section.wallawita-theme{background:linear-gradient(160deg,#1a1f0b 0%,#2c3e12 55%,#4d3b0f 100%)}
-[data-theme="dark"] .flags-section.wallawita-theme{background:linear-gradient(160deg,#0d1105 0%,#1c2810 55%,#332705 100%)}
 .flags-section.western-theme{background:linear-gradient(160deg,#0b1a2b 0%,#123a56 55%,#0f4d6e 100%)}
 [data-theme="dark"] .flags-section.western-theme{background:linear-gradient(160deg,#05101a 0%,#0d2233 55%,#083a52 100%)}
 .flags-section .section-title{color:#fff;position:relative;z-index:5;margin:0 0 8px;font-size:1.8rem;text-shadow:0 2px 14px #0008;justify-content:center}
@@ -152,7 +150,6 @@ section{padding:30px 0;scroll-margin-top:90px}
   background:radial-gradient(circle,#ff6bb5aa 0%,transparent 62%);
   animation:glowPulse 3.2s ease-in-out infinite;pointer-events:none}
 .national-flag::before{background:radial-gradient(circle,#ffb347bb 0%,#ff6bb544 40%,transparent 65%)}
-.wallawita-flag::before{background:radial-gradient(circle,#ffd166bb 0%,#ff8c4b44 40%,transparent 65%)}
 .western-flag::before{background:radial-gradient(circle,#4fc3f7bb 0%,#4fc3f744 40%,transparent 65%)}
 @keyframes flagWave{
   0%,100%{transform:rotateY(0) rotateZ(0) skewY(0)}
@@ -160,9 +157,6 @@ section{padding:30px 0;scroll-margin-top:90px}
   75%{transform:rotateY(-9deg) rotateZ(-1.2deg) skewY(-1.6deg)}
 }
 @keyframes glowPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
-
-.flag-card{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:560px;width:100%}
-.flag-card .flag-display{width:100%;animation-delay:-1.2s}
 
 /* ============ STATS ============ */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
@@ -342,7 +336,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
 
     <nav class="nav-links" id="mainNav" aria-label="Main">
       <a href="#home" data-i18n="nav.home">මුල් පිටුව</a>
-
       <a href="#about" data-i18n="nav.about">අප ගැන</a>
       <a href="#reports" data-i18n="nav.reports">වාර්තා</a>
       <a href="#gallery" data-i18n="nav.gallery">ගැලරිය</a>
@@ -375,25 +368,24 @@ footer small{opacity:.65;display:block;margin-top:8px}
     <img class="logo" src="logo.png" alt="Logo" onerror="this.style.display='none'">
   </section>
 
-  <!-- 🚩 ජාතික කොඩිය -->
+  <!-- 🚩 ජාතික කොඩිය (Using Local Image) -->
   <section id="national-flag" class="flags-section" aria-label="National Flag">
     <div class="rising-dots" data-dots="60" aria-hidden="true"></div>
     <h2 class="section-title">🇱🇰 <span data-i18n="flags.national.title">ශ්‍රී ලංකා ජාතික කොඩිය</span></h2>
     <p class="flag-sub" data-i18n="flags.national.sub">අපේ මාතෘ භූමියේ අභිමානය — සිංහල, දෙමළ, මුස්ලිම්, බර්ගර් සියලුම ජනතාවගේ එකමුතුකමේ සංකේතය.</p>
     <div class="flag-display national-flag">
-      <img src="https://flagcdn.com/w640/lk.png" alt="Sri Lanka National Flag" loading="lazy"
+      <img src="lk.png" alt="Sri Lanka National Flag" loading="lazy"
            onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#8b1538,#ffb700)';this.parentElement.style.aspectRatio='2/1'">
     </div>
   </section>
 
-  
-  <!-- 🌊 බස්නාහිර පළාත් කොඩිය -->
+  <!-- 🌊 බස්නාහිර පළාත් කොඩිය (Using Local Image) -->
   <section id="western-flag" class="flags-section western-theme" aria-label="Western Province Flag">
     <div class="rising-dots" data-dots="60" aria-hidden="true"></div>
     <h2 class="section-title">🌊 <span data-i18n="flags.western.title">බස්නාහිර පළාත් කොඩිය</span></h2>
     <p class="flag-sub" data-i18n="flags.western.sub">බස්නාහිර පළාතේ සංකේතය — අපේ පළාතේ අභිමානය.</p>
     <div class="flag-display western-flag">
-      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Western_Province_Flag_(SRI_LANKA).png" alt="Western Province Flag" loading="lazy"
+      <img src="Western_Province_Flag_(SRI_LANKA).png" alt="Western Province Flag" loading="lazy"
            onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#0f4d6e,#4fc3f7)';this.parentElement.style.aspectRatio='2/1'">
     </div>
   </section>
@@ -560,7 +552,7 @@ const GALLERY = [
     cap_si: "නැටුම් ඉදිරිපත් කළ දරුවන්", cap_en: "Children who performed the dance" },
   { type: "image", url: "photo2.jpg",
     cap_si: "ළමා දිනයේ පොත් බෙදාදීම", cap_en: "Book distribution on Children's Day" },
-  { type: "video", url: "video1.mp4",
+    { type: "video", url: "https://www.youtube.com/embed/LEtiLVYu-ug",
     cap_si: "වල්ලවිට නැටුම", cap_en: "Wallawita Dance" },
   { type: "video", url: "video2.mp4",
     cap_si: "වල්ලවිට ළමා දින වීඩියෝව", cap_en: "Wallawita Children's Day Video" },
@@ -1105,19 +1097,11 @@ $('#contactGrid').addEventListener('click', e => {
    ============================================================ */
 (function initWaterCanvas(){
   const canvas = document.getElementById('waterCanvas');
-  if(!canvas){
-    console.warn('[WaterDrops] canvas not found');
-    return;
-  }
-
+  if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  if(!ctx){
-    console.warn('[WaterDrops] 2d context unavailable');
-    return;
-  }
+  if(!ctx) return;
 
   const hero = document.querySelector('.hero') || canvas.parentElement;
-
   let w = 0, h = 0, dpr = 1;
   let drops = [];
   let running = true;
@@ -1129,9 +1113,6 @@ $('#contactGrid').addEventListener('click', e => {
     { h: 150, s: 70, l: 55 },
     { h: 35,  s: 90, l: 65 }
   ];
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const speedMul = reduceMotion ? 0.35 : 1;
 
   function resize(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1147,16 +1128,14 @@ $('#contactGrid').addEventListener('click', e => {
     const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
     const r = 6 + Math.random() * 18;
     return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: r,
-      baseR: r,
-      vx: (Math.random() - 0.5) * 0.6 * speedMul,
-      vy: (Math.random() - 0.5) * 0.6 * speedMul,
+      x: Math.random() * w, y: Math.random() * h,
+      r: r, baseR: r,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
       color: c,
       alpha: 0.18 + Math.random() * 0.35,
       phase: Math.random() * Math.PI * 2,
-      speed: (0.008 + Math.random() * 0.018) * speedMul
+      speed: 0.008 + Math.random() * 0.018
     };
   }
 
@@ -1169,54 +1148,34 @@ $('#contactGrid').addEventListener('click', e => {
   function draw(){
     if(!running) return;
     ctx.clearRect(0, 0, w, h);
-
     for(let i = 0; i < drops.length; i++){
       const d = drops[i];
-      d.x += d.vx;
-      d.y += d.vy;
-      d.phase += d.speed;
-
+      d.x += d.vx; d.y += d.vy; d.phase += d.speed;
       if(d.x < -d.r) d.x = w + d.r;
       if(d.x > w + d.r) d.x = -d.r;
       if(d.y < -d.r) d.y = h + d.r;
       if(d.y > h + d.r) d.y = -d.r;
-
       const pulse = 1 + Math.sin(d.phase) * 0.18;
       const rad = d.baseR * pulse;
-
-      const g = ctx.createRadialGradient(
-        d.x - rad * 0.35, d.y - rad * 0.35, rad * 0.08,
-        d.x, d.y, rad
-      );
+      const g = ctx.createRadialGradient(d.x - rad * 0.35, d.y - rad * 0.35, rad * 0.08, d.x, d.y, rad);
       const hue = d.color.h, s = d.color.s, l = d.color.l;
       g.addColorStop(0,    'hsla(' + hue + ',' + s + '%,' + (l + 20) + '%,' + (d.alpha * 1.3) + ')');
       g.addColorStop(0.55, 'hsla(' + hue + ',' + s + '%,' + l + '%,' + d.alpha + ')');
       g.addColorStop(1,    'hsla(' + hue + ',' + s + '%,' + (l - 10) + '%,0)');
-
       ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, rad, 0, Math.PI * 2);
-      ctx.fill();
-
+      ctx.beginPath(); ctx.arc(d.x, d.y, rad, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = 'hsla(' + hue + ',' + s + '%,' + (l + 15) + '%,' + (d.alpha * 0.45) + ')';
       ctx.lineWidth = 0.8;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, rad - 0.5, 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(d.x, d.y, rad - 0.5, 0, Math.PI * 2); ctx.stroke();
     }
-
     requestAnimationFrame(draw);
   }
 
   function start(){
     resize();
-    if(w < 10 || h < 10){
-      setTimeout(start, 150);
-      return;
-    }
+    if(w < 10 || h < 10){ setTimeout(start, 150); return; }
     populate();
     requestAnimationFrame(draw);
-    console.log('[WaterDrops] started — drops:', drops.length, 'canvas:', w + 'x' + h);
   }
   start();
 
@@ -1227,12 +1186,8 @@ $('#contactGrid').addEventListener('click', e => {
   }, { passive: true });
 
   document.addEventListener('visibilitychange', () => {
-    if(document.hidden){
-      running = false;
-    }else if(!running){
-      running = true;
-      requestAnimationFrame(draw);
-    }
+    if(document.hidden){ running = false; }
+    else if(!running){ running = true; requestAnimationFrame(draw); }
   });
 })();
 
@@ -1252,7 +1207,6 @@ document.addEventListener('pointerdown', e => {
   setTimeout(() => r.remove(), 700);
 }, { passive: true });
 
-/* Touch feedback vibrate on card tap */
 document.addEventListener('touchstart', e => {
   const card = e.target.closest('.card, .person, .gitem, .stat, .contact-card, .flag-display');
   if(card && navigator.vibrate){
