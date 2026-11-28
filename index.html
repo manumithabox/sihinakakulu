@@ -2,7 +2,7 @@
 <html lang="si" data-theme="light" data-lang="si">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
 <meta name="theme-color" id="themeColor" content="#7b155d">
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="සිහින කැකුළු ළමා සමාජය — තිරිවනකැටිය. වාර්තා, ඡායාරූප, වීඩියෝ සහ ප්‍රශ්නාවලිය.">
@@ -10,9 +10,10 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <meta name="google-site-verification" content="D92LiUYCLCqwN8eaBi9EFhRZD5-Ktqj2NzypvCxs69k" />
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="සිහින කැකුළු">
-
+<meta name="format-detection" content="telephone=no">
 <style>
 /* ============ THEME TOKENS ============ */
 :root{
@@ -32,6 +33,8 @@
   --radius:18px;
   --ease-spring:cubic-bezier(.34, 1.56, .64, 1);
   --ease-smooth:cubic-bezier(.22, 1, .36, 1);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
 }
 [data-theme="dark"]{
   --accent:#b51d72; --accent-2:#25834d;
@@ -49,30 +52,39 @@
   --shadow-lg:0 16px 40px #0008;
 }
 
+/* ============ iOS SMOOTHNESS ============ */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:system-ui,"Noto Sans Sinhala",sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;transition:background .4s,color .4s;overflow-x:hidden}
+html{scroll-behavior:smooth;overscroll-behavior-y:contain;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;font-family:system-ui,"Noto Sans Sinhala",sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.7;
+  transition:background .4s,color .4s;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:calc(64px + var(--safe-bottom));
+  overscroll-behavior-y:contain;
+}
 img{max-width:100%}
 
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none}
 .skip:focus{left:12px}
 
-header{background:linear-gradient(120deg,var(--head1),var(--head2));color:#fff;padding:14px 5%;position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
+header{background:linear-gradient(120deg,var(--head1),var(--head2));color:#fff;padding:calc(14px + var(--safe-top)) 5% 14px;position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
 .progress{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,#ff6bb5,#ffd166,#7ee0a5);transition:width .12s linear;border-radius:0 3px 3px 0}
 .nav{max-width:1150px;margin:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.brand{font-weight:800;font-size:1.05rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .3s var(--ease-spring)}
+.brand{font-weight:800;font-size:1.05rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .3s var(--ease-spring);touch-action:manipulation}
 .brand:active{transform:scale(.95)}
 .nav-links{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
-.nav-links a{color:#fff;text-decoration:none;padding:6px 10px;border-radius:9px;font-size:.94rem;transition:background .2s,transform .25s var(--ease-spring);position:relative;overflow:hidden;touch-action:manipulation}
+.nav-links a{color:#fff;text-decoration:none;padding:6px 10px;border-radius:9px;font-size:.94rem;transition:background .2s,transform .25s var(--ease-spring);position:relative;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .nav-links a:active{transform:scale(.94);background:#ffffff33}
 .nav-links a.active{background:#ffffff2e;font-weight:700}
 .nav-actions{display:flex;gap:6px}
-.icon-btn{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;border-radius:10px;min-width:38px;height:38px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s,transform .25s var(--ease-spring);position:relative;overflow:hidden;touch-action:manipulation}
+.icon-btn{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;border-radius:10px;min-width:38px;height:38px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s,transform .25s var(--ease-spring);position:relative;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .icon-btn:active{transform:scale(.9)}
 #langBtn{min-width:52px}
 #menuBtn{display:none}
 #installBtn{display:none}
-#installBtn.show{display:inline-flex; animation:aiMsgIn .5s var(--ease-smooth)}
+#installBtn.show{display:inline-flex}
 #notifBtn{display:none}
 #notifBtn.show{display:inline-flex}
 #notifBtn.granted{background:#7ee0a5; color:#0d3b1f; border-color:#7ee0a5}
@@ -87,16 +99,16 @@ section{padding:30px 0;scroll-margin-top:90px}
 .hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.25;color:var(--heading);margin:0 0 12px}
 .hero p{color:var(--ink)}
 .logo{width:100%;max-width:420px;display:block;border-radius:50%;margin:auto;box-shadow:0 12px 35px #59204c24;background:#fff;animation:heroFloat 6s ease-in-out infinite}
-@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes heroFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}
 
 .water-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;border-radius:20px}
 .hero > div,
 .hero > .logo,
 .hero > img.logo{position:relative;z-index:1}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:#fff;text-decoration:none;border:0;border-radius:12px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;font-size:.94rem;line-height:1.4;position:relative;overflow:hidden;touch-action:manipulation;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:#fff;text-decoration:none;border:0;border-radius:12px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;font-size:.94rem;line-height:1.4;position:relative;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
   transition:transform .25s var(--ease-spring), filter .2s, box-shadow .3s}
-.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn:hover{filter:brightness(1.12);transform:translate3d(0,-1px,0)}
 .btn:active{transform:scale(.94);filter:brightness(1.15)}
 .btn:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
 .btn.secondary{background:var(--accent-2)}
@@ -128,11 +140,11 @@ section{padding:30px 0;scroll-margin-top:90px}
 .rising-dots{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .rising-dots .dot{position:absolute;bottom:-50px;border-radius:50%;animation:riseUp linear infinite;will-change:transform,opacity;opacity:0}
 @keyframes riseUp{
-  0%{transform:translateY(0) translateX(0) scale(.3);opacity:0}
+  0%{transform:translate3d(0,0,0) scale(.3);opacity:0}
   10%{opacity:.95}
-  50%{transform:translateY(-55vh) translateX(24px) scale(1);opacity:.85}
+  50%{transform:translate3d(24px,-55vh,0) scale(1);opacity:.85}
   85%{opacity:.7}
-  100%{transform:translateY(-115vh) translateX(-24px) scale(1.3);opacity:0}
+  100%{transform:translate3d(-24px,-115vh,0) scale(1.3);opacity:0}
 }
 
 .flag-display{position:relative;z-index:5;width:min(92%,560px);border-radius:14px;overflow:hidden;box-shadow:0 25px 70px #000a, 0 0 90px #ff6bb544;animation:flagWave 5.5s ease-in-out infinite;transform-origin:center;transform-style:preserve-3d;touch-action:manipulation;transition:transform .35s var(--ease-spring)}
@@ -145,7 +157,7 @@ section{padding:30px 0;scroll-margin-top:90px}
 @keyframes glowPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
 
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.stat{position:relative;overflow:hidden;isolation:isolate;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 16px 22px;text-align:center;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .45s var(--ease-spring), box-shadow .45s, background .3s, border-color .3s;will-change:transform}
+.stat{position:relative;overflow:hidden;isolation:isolate;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 16px 22px;text-align:center;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .45s var(--ease-spring), box-shadow .45s, background .3s, border-color .3s;will-change:transform;transform:translateZ(0)}
 .stat::before{content:'';position:absolute;inset:-65%;z-index:-2;background:radial-gradient(circle at 30% 30%, var(--blob-1,#ff6bb5), transparent 55%),radial-gradient(circle at 70% 70%, var(--blob-2,#a06bff), transparent 55%),radial-gradient(circle at 50% 92%, var(--blob-3,#4fc3f7), transparent 60%);opacity:.28;filter:blur(14px);animation:statOrbit 16s linear infinite}
 .stat:nth-child(1){--blob-1:#ff6bb5;--blob-2:#ffb86b;--blob-3:#ffe066}
 .stat:nth-child(2){--blob-1:#7ee0a5;--blob-2:#4fc3f7;--blob-3:#a06bff}
@@ -155,15 +167,15 @@ section{padding:30px 0;scroll-margin-top:90px}
 .stat:nth-child(3)::before{animation-delay:-8s}
 .stat:nth-child(4)::before{animation-delay:-12s}
 @keyframes statOrbit{from{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.08)}to{transform:rotate(360deg) scale(1)}}
-.stat::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 30%,#ffffff2e 50%,transparent 70%);transform:translateX(-130%);transition:transform .95s var(--ease-spring);pointer-events:none}
-.stat:hover::after{transform:translateX(130%)}
-.stat:hover{transform:translateY(-6px) scale(1.025);box-shadow:var(--shadow-lg)}
+.stat::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 30%,#ffffff2e 50%,transparent 70%);transform:translate3d(-130%,0,0);transition:transform .95s var(--ease-spring);pointer-events:none}
+.stat:hover::after{transform:translate3d(130%,0,0)}
+.stat:hover{transform:translate3d(0,-6px,0) scale(1.025);box-shadow:var(--shadow-lg)}
 .stat:active{transform:scale(.96)}
 .stat .si{display:inline-block;font-size:1.9rem;line-height:1.3;position:relative;z-index:3;animation:floatIcon 3.4s ease-in-out infinite;filter:drop-shadow(0 4px 8px #0002)}
 .stat:nth-child(2) .si{animation-delay:.55s}
 .stat:nth-child(3) .si{animation-delay:1.1s}
 .stat:nth-child(4) .si{animation-delay:1.65s}
-@keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-5deg)}}
+@keyframes floatIcon{0%,100%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(0,-6px,0) rotate(-5deg)}}
 .stat strong{display:block;position:relative;z-index:3;font-size:1.95rem;font-weight:800;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin:2px 0 4px;background:linear-gradient(120deg,var(--heading),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--heading)}
 .stat span.lbl{display:block;position:relative;z-index:3;font-size:.86rem;font-weight:700;color:var(--muted);letter-spacing:.02em}
 
@@ -172,27 +184,34 @@ section{padding:30px 0;scroll-margin-top:90px}
 .toolbar input[type=search]{flex:1 1 220px}
 .toolbar input:focus,.toolbar select:focus{outline:2px solid var(--link);outline-offset:1px}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{font:inherit;font-size:.87rem;font-weight:600;padding:7px 14px;border-radius:30px;border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer;position:relative;overflow:hidden;touch-action:manipulation;transition:border-color .2s, background .2s, color .2s, transform .25s var(--ease-spring)}
+.chip{font:inherit;font-size:.87rem;font-weight:600;padding:7px 14px;border-radius:30px;border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer;position:relative;overflow:hidden;touch-action:manipulation;transition:border-color .2s, background .2s, color .2s, transform .25s var(--ease-spring);-webkit-tap-highlight-color:transparent}
 .chip:hover{border-color:var(--accent)}
 .chip:active{transform:scale(.93)}
 .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
-.gitem{margin:0;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .4s var(--ease-spring), box-shadow .4s}
-.gitem:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.gitem{margin:0;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .4s var(--ease-spring), box-shadow .4s;transform:translateZ(0)}
+.gitem:hover{transform:translate3d(0,-4px,0);box-shadow:var(--shadow-lg)}
 .gitem:active{transform:scale(.97)}
 .gitem img,.gitem video{width:100%;height:170px;object-fit:cover;display:block;background:#241a2b}
 .gitem img{cursor:zoom-in}
 .gitem iframe{width:100%;height:170px;border:0;display:block}
 .gcap{padding:10px 12px;font-size:.86rem;border-top:1px solid var(--border);color:var(--ink)}
 
+/* ============ COMMITTEE (with call buttons) ============ */
 .committee{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
-.person{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .35s var(--ease-spring), box-shadow .35s}
-.person:hover{transform:translateY(-3px)}
+.person{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;box-shadow:var(--shadow);touch-action:manipulation;transition:transform .35s var(--ease-spring), box-shadow .35s;transform:translateZ(0)}
+.person:hover{transform:translate3d(0,-3px,0)}
 .person:active{transform:scale(.96)}
 .person .pi{font-size:1.7rem;display:block}
 .person h4{margin:6px 0 2px;font-size:.98rem;color:var(--heading)}
 .person p{margin:0;font-size:.84rem;color:var(--muted)}
+.person-actions{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.person-btn{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;text-decoration:none;transition:transform .2s var(--ease-spring), filter .2s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;border:0;cursor:pointer}
+.person-btn.call{background:#25834d;color:#fff}
+.person-btn.wa{background:#25D366;color:#fff}
+.person-btn:hover{filter:brightness(1.1)}
+.person-btn:active{transform:scale(.88)}
 
 .donate-card {text-align: center; padding: 30px 20px; background: linear-gradient(135deg, var(--notice-bg), var(--card)); border: 2px dashed var(--accent-2); border-radius: var(--radius); box-shadow: var(--shadow);}
 .donate-card .icon { font-size: 3rem; margin-bottom: 10px; display: block; }
@@ -202,7 +221,7 @@ section{padding:30px 0;scroll-margin-top:90px}
 
 .emergency-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;}
 .emergency-card {background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; box-shadow: var(--shadow); transition: transform .3s; display: flex; flex-direction: column; justify-content: space-between; max-width: 500px; margin: 0 auto; width: 100%;}
-.emergency-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.emergency-card:hover { transform: translate3d(0,-5px,0); box-shadow: var(--shadow-lg); }
 .emergency-card .icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
 .emergency-card h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--heading); line-height: 1.4; }
 .emergency-card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 15px; flex-grow: 1; }
@@ -227,17 +246,17 @@ iframe.gform{width:100%;height:800px;border:0;border-radius:14px;background:#fff
 .lb-btn{position:absolute;background:#ffffff1c;border:1px solid #ffffff33;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s, transform .25s var(--ease-spring);line-height:1;touch-action:manipulation}
 .lb-btn:hover{background:#ffffff3d}
 .lb-btn:active{transform:scale(.88)}
-.lb-close{top:16px;right:16px}
+.lb-close{top:calc(16px + var(--safe-top));right:16px}
 .lb-prev{left:12px;top:50%;transform:translateY(-50%)}
 .lb-next{right:12px;top:50%;transform:translateY(-50%)}
 .lb-prev:active{transform:translateY(-50%) scale(.88)}
 .lb-next:active{transform:translateY(-50%) scale(.88)}
 .lb-btn:disabled{opacity:.25;cursor:default}
 
-#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#25142b;color:#fff;padding:11px 20px;border-radius:30px;font-size:.9rem;font-weight:600;box-shadow:0 10px 30px #0006;opacity:0;pointer-events:none;transition:.35s var(--ease-spring);z-index:80}
+#toast{position:fixed;left:50%;bottom:calc(84px + var(--safe-bottom));transform:translate(-50%,20px);background:#25142b;color:#fff;padding:11px 20px;border-radius:30px;font-size:.9rem;font-weight:600;box-shadow:0 10px 30px #0006;opacity:0;pointer-events:none;transition:.35s var(--ease-spring);z-index:80;max-width:calc(100vw - 32px);text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 
-#backTop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 8px 22px #0004;opacity:0;transform:translateY(14px);pointer-events:none;transition:.35s var(--ease-spring);z-index:40;touch-action:manipulation}
+#backTop{position:fixed;right:18px;bottom:calc(84px + var(--safe-bottom));width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 8px 22px #0004;opacity:0;transform:translateY(14px);pointer-events:none;transition:.35s var(--ease-spring);z-index:40;touch-action:manipulation}
 #backTop.show{opacity:1;transform:none;pointer-events:auto}
 #backTop:active{transform:scale(.9)}
 
@@ -248,13 +267,6 @@ footer .fnav a:hover{text-decoration:underline}
 footer .fnav a:active{transform:scale(.94)}
 footer small{opacity:.65;display:block;margin-top:8px}
 
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s var(--ease-spring)}
-.reveal.in{opacity:1;transform:none}
-
-.ripple{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);animation:rippleAnim .65s var(--ease-spring) forwards;pointer-events:none;z-index:100}
-@keyframes rippleAnim{to{transform:translate(-50%,-50%) scale(24);opacity:0}}
-
-/* ============ SMOOTH ANIMATIONS ============ */
 .reveal{opacity:0;transform:translate3d(0, 32px, 0) scale(.96);filter:blur(6px);transition:opacity 1s var(--ease-smooth),transform 1s var(--ease-smooth),filter 1s var(--ease-smooth);will-change:transform, opacity, filter;}
 .reveal.in{ opacity:1; transform:translate3d(0, 0, 0) scale(1); filter:blur(0); }
 
@@ -297,20 +309,22 @@ footer small{opacity:.65;display:block;margin-top:8px}
 @keyframes smoothBreathe{0%, 100%{box-shadow:0 7px 22px #38152a0b;}50%{box-shadow:0 12px 32px #38152a18, 0 0 42px -12px var(--accent-2);}}
 .donate-card,.emergency-card:not(:hover){ animation:smoothBreathe 4.2s ease-in-out infinite; }
 
-.btn::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);transform:translateX(-130%);transition:transform .9s var(--ease-smooth);pointer-events:none;z-index:1;}
-.btn:hover::before{ transform:translateX(130%); }
+.btn::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);transform:translate3d(-130%,0,0);transition:transform .9s var(--ease-smooth);pointer-events:none;z-index:1;}
+.btn:hover::before{ transform:translate3d(130%,0,0); }
 
 @keyframes smoothHeroGlow{0%, 100%{box-shadow:0 12px 35px #59204c24;}50%{box-shadow:0 18px 55px #59204c3a, 0 0 60px -18px var(--accent);}}
 .hero .logo{ animation:heroFloat 6s ease-in-out infinite, smoothHeroGlow 4s ease-in-out infinite; }
 
-/* ============ AI CHATBOT ============ */
+.ripple{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);transform:translate(-50%,-50%) scale(0);animation:rippleAnim .65s var(--ease-spring) forwards;pointer-events:none;z-index:100}
+@keyframes rippleAnim{to{transform:translate(-50%,-50%) scale(24);opacity:0}}
+
+/* ============ AI CHATBOT (merged) ============ */
 .ai-fab {
-  position: fixed; left: 18px; bottom: 18px;
+  position: fixed; left: 18px; bottom: calc(84px + var(--safe-bottom));
   width: 58px; height: 58px; border-radius: 50%; border: 0;
   background: linear-gradient(135deg, var(--accent), var(--heading));
   color: #fff; font-size: 1.5rem; cursor: pointer;
-  box-shadow: 0 8px 28px #b51d7266;
-  z-index: 45;
+  box-shadow: 0 8px 28px #b51d7266; z-index: 45;
   display: flex; align-items: center; justify-content: center;
   transition: transform .3s var(--ease-spring), box-shadow .3s;
   animation: aiFabPulse 2.6s ease-in-out infinite;
@@ -330,21 +344,14 @@ footer small{opacity:.65;display:block;margin-top:8px}
   0%, 100% { box-shadow: 0 8px 28px #b51d7266, 0 0 0 0 #b51d7255; }
   50%      { box-shadow: 0 8px 28px #b51d7288, 0 0 0 14px #b51d7200; }
 }
-
 .ai-chat {
-  position: fixed; left: 18px; bottom: 88px;
-  width: min(400px, calc(100vw - 36px));
-  max-height: min(640px, calc(100vh - 160px));
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 0 24px 60px #0004;
-  z-index: 46;
-  display: flex; flex-direction: column;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px) scale(.9);
-  transform-origin: bottom left;
+  position: fixed; left: 18px; bottom: calc(150px + var(--safe-bottom));
+  width: min(420px, calc(100vw - 36px));
+  max-height: min(680px, calc(100vh - 200px));
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; box-shadow: 0 24px 60px #0004; z-index: 46;
+  display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: translateY(20px) scale(.9); transform-origin: bottom left;
   pointer-events: none;
   transition: opacity .35s var(--ease-smooth), transform .35s var(--ease-spring);
 }
@@ -357,8 +364,7 @@ footer small{opacity:.65;display:block;margin-top:8px}
 .ai-header .ai-avatar {
   width: 36px; height: 36px; border-radius: 50%;
   background: #ffffff2e; display: flex; align-items: center; justify-content: center;
-  font-size: 1.15rem; flex-shrink: 0;
-  transition: background .2s;
+  font-size: 1.15rem; flex-shrink: 0; transition: background .2s;
 }
 .ai-header .ai-titles { flex: 1; min-width: 0; }
 .ai-header .ai-title { font-weight: 800; font-size: .95rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -379,13 +385,11 @@ footer small{opacity:.65;display:block;margin-top:8px}
 .ai-header .ai-close:hover { background: #ffffff3d; }
 .ai-header .ai-close:active { transform: scale(.9); }
 
-/* Bot selector row */
 .ai-bots {
   display: flex; gap: 6px; padding: 8px 10px;
   border-bottom: 1px solid var(--border);
   background: var(--paper); flex-shrink: 0;
-  overflow-x: auto; scroll-behavior: smooth;
-  scrollbar-width: thin;
+  overflow-x: auto; scroll-behavior: smooth; scrollbar-width: thin;
 }
 .ai-bots::-webkit-scrollbar { height: 4px; }
 .ai-bots::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -410,12 +414,10 @@ footer small{opacity:.65;display:block;margin-top:8px}
 .ai-messages {
   flex: 1; overflow-y: auto; padding: 14px;
   display: flex; flex-direction: column; gap: 10px;
-  background: var(--paper); min-height: 180px;
-  scroll-behavior: smooth;
+  background: var(--paper); min-height: 180px; scroll-behavior: smooth;
 }
 .ai-messages::-webkit-scrollbar { width: 6px; }
 .ai-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
 .ai-msg {
   max-width: 88%; padding: 10px 14px; border-radius: 16px;
   font-size: .9rem; line-height: 1.55;
@@ -438,7 +440,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
 }
 .ai-msg a { color: var(--link); font-weight: 700; text-decoration: underline; }
 .ai-msg.user a { color: #fff; }
-
 .ai-typing {
   align-self: flex-start;
   background: var(--card); border: 1px solid var(--border);
@@ -447,8 +448,7 @@ footer small{opacity:.65;display:block;margin-top:8px}
 }
 .ai-typing span {
   width: 7px; height: 7px; border-radius: 50%;
-  background: var(--muted);
-  animation: aiTyping 1.2s ease-in-out infinite;
+  background: var(--muted); animation: aiTyping 1.2s ease-in-out infinite;
 }
 .ai-typing span:nth-child(2) { animation-delay: .2s; }
 .ai-typing span:nth-child(3) { animation-delay: .4s; }
@@ -456,7 +456,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
   0%, 60%, 100% { transform: translateY(0); opacity: .35; }
   30% { transform: translateY(-6px); opacity: 1; }
 }
-
 .ai-quick {
   display: flex; gap: 6px; flex-wrap: wrap;
   padding: 8px 12px; border-top: 1px solid var(--border);
@@ -473,7 +472,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
 }
 .ai-quick button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 .ai-quick button:active { transform: scale(.93); }
-
 .ai-input-row {
   display: flex; gap: 6px; padding: 10px 12px;
   border-top: 1px solid var(--border); background: var(--card);
@@ -483,8 +481,7 @@ footer small{opacity:.65;display:block;margin-top:8px}
   flex: 1; font: inherit; font-size: .9rem;
   padding: 10px 14px; border-radius: 22px;
   border: 1px solid var(--border); background: var(--paper); color: var(--ink);
-  outline: none; transition: border-color .2s, box-shadow .2s;
-  min-width: 0;
+  outline: none; transition: border-color .2s, box-shadow .2s; min-width: 0;
 }
 .ai-input-row input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #b51d7222; }
 .ai-input-row button {
@@ -499,6 +496,54 @@ footer small{opacity:.65;display:block;margin-top:8px}
 .ai-input-row button:hover { filter: brightness(1.12); }
 .ai-input-row button:active { transform: scale(.9); }
 
+/* ============ APP BANNER (Ad) ============ */
+.app-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:99;
+  background:linear-gradient(135deg,var(--head1),var(--head2));
+  color:#fff;padding:16px 18px calc(18px + var(--safe-bottom));
+  border-radius:22px 22px 0 0;
+  box-shadow:0 -12px 40px rgba(0,0,0,0.35);
+  transform:translate3d(0, 120%, 0);
+  transition:transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change:transform;
+  display:flex;align-items:center;gap:14px;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.app-banner.show{ transform:translate3d(0, 0, 0); }
+.app-banner.hidden{ display:none !important; }
+.app-banner-close{
+  position:absolute;top:8px;right:8px;
+  background:#ffffff22;border:1px solid #ffffff33;color:#fff;
+  width:30px;height:30px;border-radius:50%;cursor:pointer;
+  font-size:.9rem;display:flex;align-items:center;justify-content:center;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  transition:transform .2s var(--ease-spring);
+}
+.app-banner-close:active{transform:scale(.88)}
+.app-banner-icon{
+  width:56px;height:56px;border-radius:14px;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;flex-shrink:0;
+  box-shadow:0 6px 20px #0004;
+  overflow:hidden;
+}
+.app-banner-icon img{width:100%;height:100%;object-fit:cover}
+.app-banner-content{flex:1;min-width:0}
+.app-banner-title{font-weight:800;font-size:.98rem;line-height:1.25;margin-bottom:4px}
+.app-banner-text{font-size:.78rem;opacity:.85;line-height:1.4;margin:0}
+.app-banner-btn{
+  background:#ffd166;color:#4a2e00;border:0;
+  padding:10px 16px;border-radius:12px;
+  font:inherit;font-weight:800;font-size:.85rem;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  transition:transform .2s var(--ease-spring), filter .2s;
+  box-shadow:0 4px 12px #0003;
+}
+.app-banner-btn:hover{filter:brightness(1.08)}
+.app-banner-btn:active{transform:scale(.92)}
+
 @media(max-width:820px){
   .nav-links{display:none;order:5;width:100%;flex-direction:column;padding-top:8px;margin-left:0}
   .nav-links.open{display:flex}
@@ -509,15 +554,16 @@ footer small{opacity:.65;display:block;margin-top:8px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
   .gitem img,.gitem video,.gitem iframe{height:140px}
-  header{position:static}
+  header{position:sticky}
   iframe.gform{height:650px}
   .hero .btn-row{justify-content:center}
   .flags-section{padding:42px 14px 52px;min-height:420px;border-radius:18px}
   .flags-section .section-title{font-size:1.4rem}
   .flag-display{width:100%}
-  #backTop{bottom:84px;right:14px}
-  .ai-fab{width:52px;height:52px;font-size:1.3rem;left:14px;bottom:14px}
-  .ai-chat{left:14px;bottom:76px;width:calc(100vw - 28px);max-height:calc(100vh - 100px)}
+  #backTop{bottom:calc(90px + var(--safe-bottom));right:14px}
+  #toast{bottom:calc(90px + var(--safe-bottom))}
+  .ai-fab{width:52px;height:52px;font-size:1.3rem;left:14px;bottom:calc(90px + var(--safe-bottom))}
+  .ai-chat{left:8px;bottom:calc(148px + var(--safe-bottom));width:calc(100vw - 16px);max-height:calc(100vh - 220px);border-radius:16px}
   .ai-bots{padding:6px 8px}
   .ai-bot-chip{min-width:54px}
   .ai-bot-chip .nm{font-size:.6rem}
@@ -526,6 +572,7 @@ footer small{opacity:.65;display:block;margin-top:8px}
   .stats{grid-template-columns:1fr}
   .stat{padding:22px 14px 18px}
   .stat strong{font-size:1.7rem}
+  .hero h1{font-size:1.9rem}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -533,10 +580,11 @@ footer small{opacity:.65;display:block;margin-top:8px}
   .reveal{opacity:1;transform:none;filter:none}
   .hero .logo{animation:none}
   .btn::before{display:none}
+  .app-banner{transition-duration:0s}
 }
 @media print{
-  header,footer,#backTop,.lightbox,#toast,.toolbar,.btn,#form,.flags-section,.water-canvas,.ai-fab,.ai-chat{display:none !important}
-  body{background:#fff;color:#000}
+  header,footer,#backTop,.lightbox,#toast,.toolbar,.btn,#form,.flags-section,.water-canvas,.app-banner,.ai-fab,.ai-chat{display:none !important}
+  body{background:#fff;color:#000;padding-bottom:0}
   .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
   .stat::before,.stat::after{display:none}
 }
@@ -550,7 +598,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
   <div class="progress" id="progress"></div>
   <div class="nav">
     <a class="brand" href="#home">🌸 <span data-i18n="brand">සිහින කැකුළු ළමා සමාජය</span></a>
-
     <nav class="nav-links" id="mainNav" aria-label="Main">
       <a href="#home" data-i18n="nav.home">මුල් පිටුව</a>
       <a href="#about" data-i18n="nav.about">අප ගැන</a>
@@ -561,7 +608,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
       <a href="#groups" data-i18n="nav.groups">WhatsApp</a>
       <a href="#contact" data-i18n="nav.contact">සම්බන්ධ වන්න</a>
     </nav>
-
     <div class="nav-actions">
       <button class="icon-btn" id="notifBtn" type="button" aria-label="Enable notifications" title="Notifications">🔔</button>
       <button class="icon-btn" id="installBtn" type="button" aria-label="Install App" data-i18n-title="install.aria" title="Install as App">📲</button>
@@ -573,7 +619,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
 </header>
 
 <main id="main">
-
   <section id="home" class="hero">
     <canvas class="water-canvas" id="waterCanvas" aria-hidden="true"></canvas>
     <div>
@@ -591,7 +636,7 @@ footer small{opacity:.65;display:block;margin-top:8px}
   <section id="national-flag" class="flags-section" aria-label="National Flag">
     <div class="rising-dots" data-dots="60" aria-hidden="true"></div>
     <h2 class="section-title">🇱🇰 <span data-i18n="flags.national.title">ශ්‍රී ලංකා ජාතික කොඩිය</span></h2>
-    <p class="flag-sub" data-i18n="flags.national.sub">අපේ මාතෘ භූමියේ අභිමානය — සිංහල, දෙමළ, මුස්ලිම්, බර්ගර් සියලුම ජනතාවගේ එකමුතුකමේ සංකේතය.</p>
+    <p class="flag-sub" data-i18n="flags.national.sub">අපේ මාතෘ භූමියේ අභිමානය — සියලුම ජනතාවගේ එකමුතුකමේ සංකේතය.</p>
     <div class="flag-display national-flag">
       <img src="lk.png" alt="Sri Lanka National Flag" loading="lazy"
            onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#8b1538,#ffb700)';this.parentElement.style.aspectRatio='2/1'">
@@ -623,7 +668,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
       <p><strong data-i18n="about.note.lbl">විශේෂ සටහන:</strong> <span data-i18n="about.note.text">වල්ලවිට ප්‍රාදේශීය ළමා දින උත්සවයට අපගේ සමාජයේ දරුවන් විසින් නැටුම් අංගයක් ඉදිරිපත් කරන ලදී.</span></p>
       <p data-i18n="about.purpose">දරුවන්ගේ අධ්‍යාපනය, නිර්මාණශීලීත්වය, නායකත්වය සහ සමාජ සේවය දියුණු කිරීම අපගේ අරමුණයි.</p>
     </div>
-
     <h3 style="color:var(--heading);margin:22px 0 4px">👥 <span data-i18n="committee.title">කමිටුව හා අනුශාසකවරු</span></h3>
     <div class="committee" id="committeeGrid"></div>
   </section>
@@ -699,7 +743,6 @@ footer small{opacity:.65;display:block;margin-top:8px}
     <h2 class="section-title">📞 <span data-i18n="contact.title">අප හා සම්බන්ධ වන්න</span></h2>
     <div class="contact-grid" id="contactGrid"></div>
   </section>
-
 </main>
 
 <footer>
@@ -720,11 +763,19 @@ footer small{opacity:.65;display:block;margin-top:8px}
 <button id="backTop" type="button" aria-label="Top">↑</button>
 <div id="toast" role="status" aria-live="polite"></div>
 
-<button class="ai-fab" id="aiFab" type="button" aria-label="AI Assistant">
-  🤖
-  <span class="ai-badge">AI</span>
-</button>
+<div class="app-banner" id="appBanner" role="dialog" aria-label="Install App">
+  <button class="app-banner-close" id="appBannerClose" type="button" aria-label="Close">✕</button>
+  <div class="app-banner-icon" id="appBannerIcon">📲</div>
+  <div class="app-banner-content">
+    <div class="app-banner-title" id="appBannerTitle">සිහින කැකුළු App ලෙස install කරන්න</div>
+    <p class="app-banner-text" id="appBannerText">හෝම් ස්ක්‍රීන් එකට එකතු කර ඉක්මනින් open කරන්න</p>
+  </div>
+  <button class="app-banner-btn" id="appBannerBtn" type="button">Install</button>
+</div>
 
+<button class="ai-fab" id="aiFab" type="button" aria-label="AI Assistant">
+  🤖<span class="ai-badge">AI</span>
+</button>
 <div class="ai-chat" id="aiChat" role="dialog" aria-modal="false" aria-label="AI Assistant">
   <div class="ai-header">
     <div class="ai-avatar" id="aiAvatar">🤖</div>
@@ -761,7 +812,7 @@ const CONTACT = {
   phone: "0782844838",
   whatsapp: "0713343803",
   email: "thenumanumitha@gmail.com",
-  youtube: "https://www.youtube.com/@comedy23-j5x",
+ youtube: "https://youtube.com/@sihinakakulu?si=_H6fctPsnB_0jc0K",
   tiktok: "https://www.tiktok.com/@sihinakakulu?_r=1&_t=ZS-9BhTmj516O4",
   address_si: "තිරිවනකැටිය, ශ්‍රී ලංකාව",
   address_en: "Thirivanaketiya, Sri Lanka",
@@ -770,20 +821,32 @@ const CONTACT = {
 const FORM_URL = "https://docs.google.com/forms/d/13NAOKP8lUgW-mHA9aCjBSbw1ps0Pc0i1Hp0w3AG3Trk/viewform";
 const MEMBERS_TOTAL = 28;
 
+function normalizePhone(p){
+  if(!p) return '';
+  const digits = String(p).replace(/[^\d]/g, '');
+  if(!digits) return '';
+  if(digits.startsWith('94')) return '+94' + digits.slice(2);
+  if(digits.startsWith('0')) return '+94' + digits.slice(1);
+  if(digits.length === 9) return '+94' + digits;
+  return '+' + digits;
+}
+
 const COMMITTEE = [
-  { key: "president",    name_si: "සෙනුදි සොහන්සා",           name_en: "Senudi Sohansa",            icon: "👑" },
-  { key: "secretary",    name_si: "එසදි දුලන්සා",             name_en: "Esadi Dulansa",             icon: "📝" },
-  { key: "treasurer",    name_si: "ඔසදි සෙසත්මි නෙතුමිලා",    name_en: "Osadi Sesathmi Nethumila",  icon: "💰" },
-  { key: "community",    name_si: "නදිකා කුමාරි මිස්",         name_en: "Nadika Kumari (Miss)",      icon: "🤝" },
-  { key: "child_rights", name_si: "රංජනි මිස්",               name_en: "Ranjani (Miss)",            icon: "🛡️" },
-  { key: "advisor",      name_si: "චම්පිකා නැන්දා",           name_en: "Champika Aunty",            icon: "🌟" },
-  { key: "advisor",      name_si: "ඉනෝෂා නැන්දා",             name_en: "Inosha Aunty",              icon: "🌟" },
-  { key: "advisor",      name_si: "කලණි අක්කා",              name_en: "Kalani Akka",               icon: "🌟" }
+  { key: "president",    name_si: "සෙනුදි සොහන්සා",           name_en: "Senudi Sohansa",            icon: "👑", phone: "" },
+  { key: "secretary",    name_si: "එසදි දුලන්සා",             name_en: "Esadi Dulansa",             icon: "📝", phone: "" },
+  { key: "treasurer",    name_si: "ඔසදි සෙසත්මි නෙතුමිලා",    name_en: "Osadi Sesathmi Nethumila",  icon: "💰", phone: "" },
+  { key: "community",    name_si: "නදිකා කුමාරි මිස්",         name_en: "Nadika Kumari (Miss)",      icon: "🤝", phone: "+94782391166" },
+  { key: "child_rights", name_si: "රංජනි මිස්",               name_en: "Ranjani (Miss)",            icon: "🛡️", phone: "+94711133607" },
+  { key: "advisor",      name_si: "චම්පිකා නැන්දා",           name_en: "Champika Aunty",            icon: "🌟", phone: "0710110161" },
+  { key: "advisor",      name_si: "ඉනෝෂා නැන්දා",             name_en: "Inosha Aunty",              icon: "🌟", phone: "0783635099" },
+  { key: "advisor",      name_si: "කලණි අක්කා",              name_en: "Kalani Akka",               icon: "🌟", phone: "0787844838" },
+  { key: "advisor",      name_si: "හසිත නැන්දා",              name_en: "Hasitha Aunty",             icon: "🌟", phone: "0778807473" },
+  { key: "advisor",      name_si: "නිරෝෂා නැන්දා",            name_en: "Nirosha Aunty",             icon: "🌟", phone: "+94712882498" }
 ];
 
 const ROLES = {
   president:    { si: "සභාපති",                     en: "President" },
-  secretary:    { si: "ලේඛම්",                     en: "Secretary" },
+  secretary:    { si: "ලේඛිකා",                     en: "Secretary" },
   treasurer:    { si: "භාණ්ඩාගාරික",                 en: "Treasurer" },
   community:    { si: "ප්‍රජා සංවර්ධන නිලධාරි",        en: "Community Development Officer" },
   child_rights: { si: "ළමා හිමිකම් ප්‍රවර්ධන නිලධාරි", en: "Child Rights Promotion Officer" },
@@ -800,100 +863,89 @@ const GALLERY = [
   { type: "image", url: "photo1.jpg", cap_si: "නැටුම් ඉදිරිපත් කළ දරුවන්", cap_en: "Children who performed the dance" },
   { type: "image", url: "photo2.jpg", cap_si: "ළමා දිනයේ පොත් බෙදාදීම", cap_en: "Book distribution on Children's Day" },
   { type: "video", url: "https://www.youtube.com/embed/LEtiLVYu-ug", cap_si: "වල්ලවිට නැටුම", cap_en: "Wallawita Dance" },
-  { type: "video", url: "https://youtu.be/kML0UD3ze24?si=vv3oBFKLQ-aeIPbS", cap_si: "තිරිවාන කැටිය ප්‍රාජාශාලාවෙ තිබු ලමා දින පුජා  නැටුම", cap_en: "Puja Dance" },
-  { type: "video", url: "https://youtube.com/shorts/vDL0s2YQD0o?si=lJnRXWnvsertaj3k", cap_si: "තිරිවානකැටිය ප්‍රජාශාලාවෙදි ළාමා දින උත්සවයට පැමිනසිටි සමුද්ධි සංවර්ධන නිලදාරි තමියගෙ විරිදුව ", cap_en: "At the Thirivanaketa Community Hall, the Community Development Officer scolded her husband who had come for Children's Day celebrations." },
-  { type: "video", url: "https://youtube.com/shorts/5ExX5GIZkjk?si=bLKBkLgj9iKx2xur", cap_si: "ප්‍රජා ශක්ති කමිටුවේ සබාපති තුමියගෙ කතාව ", cap_en: "The story of the chairperson of the People's Power Committee" },
+  { type: "video", url: "https://youtu.be/kML0UD3ze24?si=vv3oBFKLQ-aeIPbS", cap_si: "තිරිවාන කැටිය ප්‍රාජාශාලාවෙ තිබු ලමා දින පුජා නැටුම", cap_en: "Puja Dance" },
+  { type: "video", url: "https://youtube.com/shorts/vDL0s2YQD0o?si=lJnRXWnvsertaj3k", cap_si: "තිරිවානකැටිය ප්‍රජාශාලාවෙදි ළාමා දින උත්සවයට පැමිනසිටි සමුද්ධි සංවර්ධන නිලදාරි තමියගෙ විරිදුව", cap_en: "At the Thirivanaketa Community Hall" },
+  { type: "video", url: "https://youtube.com/shorts/5ExX5GIZkjk?si=bLKBkLgj9iKx2xur", cap_si: "ප්‍රජා ශක්ති කමිටුවේ සබාපති තුමියගෙ කතාව", cap_en: "People's Power Committee chairperson" },
   { type: "video", url: "video2.mp4", cap_si: "වල්ලවිට ළමා දින වීඩියෝව", cap_en: "Wallawita Children's Day Video" },
-  { type: "image", url: "ප්‍රජා  කමිටුව් සබාපති..jpg", cap_si: "තිරිවාන කැටිය ප්‍රාජාශාලාවෙ තිබු ලමා දින සැමරුමට සහබාගි වි තුබු ප්‍රජා ශක්ති කමිටුවෙ සබාපති තුමිය විසින් පොල්තෙල් පහන් දැල්විම", cap_en: "President of the Community Development Committee lighting oil lamps at the Children's Day celebration at Thirivanaketiya Community Hall" },
-  { type: "image", url: "නදිකා  මිස්.jpg", cap_si: "තිරිවාන කැටිය ප්‍රාජාශාලාවෙ තිබු ලමා දින සැමරුමට සහබාගි වි තුබු ප්‍රජා සංවර්ධන නිලධාරි තුමිය විසින් පොල්තෙල් පහන් දැල්විම", cap_en: "Community Development Officer lighting oil lamps at the Children's Day celebration at Thirivanaketiya Community Hall" },
-  { type: "image", url: "ලෙකම් තුමිය.jpg", cap_si: "තිරිවාන කැටිය ප්‍රාජාශාලාවෙ තිබු ලමා දින සැමරුමට සිහින කැකුලු ලමාසමාජයෙ ලෙකම් තුමිය විසින් පොල්තෙල් පහන් දැල්විම", cap_en: "Secretary of Sihina Kakulu Children's Society lighting oil lamps at the Children's Day celebration at Thirivanaketiya Community Hall" }
+  { type: "image", url: "ප්‍රජා  කමිටුව් සබාපති..jpg", cap_si: "ප්‍රජා ශක්ති කමිටුවෙ සබාපති තුමිය පොල්තෙල් පහන් දැල්විම", cap_en: "President of Community Development Committee lighting lamps" },
+  { type: "image", url: "නදිකා  මිස්.jpg", cap_si: "ප්‍රජා සංවර්ධන නිලධාරි තුමිය පොල්තෙල් පහන් දැල්විම", cap_en: "Community Development Officer lighting lamps" },
+  { type: "image", url: "ලෙකම් තුමිය.jpg", cap_si: "සිහින කැකුලු ලමාසමාජයෙ ලෙකම් තුමිය පොල්තෙල් පහන් දැල්විම", cap_en: "Secretary lighting oil lamps" }
 ];
 
 const FOUNDED_DATE = "2026-09-04";
 
 /* ============================================================
-   🤖 5 BOTS — personalities
+   🤖 5 BOTS
    ============================================================ */
 const BOTS = [
   {
-    id: 'general',
-    icon: '🤖',
+    id: 'general', icon: '🤖',
     name: { si: 'සාමාන්‍ය', en: 'General', singlish: 'General' },
     welcome: {
       si: (d) => `ආයුබෝවන්! 🌸 මම ${d.brand} සාමාන්‍ය සහායකයා.\n\nමට අහන්න පුළුවන්:\n📅 වාර්තා • 📞 සම්බන්ධතා • 👥 කමිටුව\n🖼️ ගැලරිය • ❤️ ආධාර • 🆘 WhatsApp\n\nමොනවද දැනගන්න ඕන?`,
       en: (d) => `Hello! 🌸 I'm the ${d.brand} general assistant.\n\nAsk me about:\n📅 Reports • 📞 Contact • 👥 Committee\n🖼️ Gallery • ❤️ Donate • 🆘 WhatsApp\n\nWhat do you need?`,
       singlish: (d) => `Ayubowan! 🌸 Mama ${d.brand} general helper.\n\nMata ahanna puluwan:\n📅 Reports • 📞 Contact • 👥 Committee\n🖼️ Gallery • ❤️ Donate • 🆘 WhatsApp\n\nMonawada danaganna one?`
     },
-    scope: ['reports','contact','committee','donate','gallery','whatsapp','about','purpose','members','location','founder','time','date','greetings','thanks']
+    scope: ['reports','contact','committee','donate','gallery','whatsapp_group','about','purpose','members','location','founder','time','date','greetings','thanks']
   },
   {
-    id: 'reports',
-    icon: '📅',
+    id: 'reports', icon: '📅',
     name: { si: 'වාර්තා', en: 'Reports', singlish: 'Reports' },
     welcome: {
-      si: (d) => `📅 ආයුබෝවන්! මම වාර්තා සහායකයා.\n\nඅපගේ වාර්තා ${d.reports.length}ක් ඇත. මට අහන්න:\n• 'වාර්තා මොනවද?'\n• 'අලුත්ම වාර්තාව?'\n• 'PDF කොහොමද?'`,
-      en: (d) => `📅 Hello! I'm the Reports bot.\n\nWe have ${d.reports.length} reports. Ask me:\n• 'What reports do you have?'\n• 'Latest report?'\n• 'How to download PDF?'`,
-      singlish: (d) => `📅 Hello! Mama Reports bot.\n\nApe reports ${d.reports.length} k thiyenawa. Mata ahanna:\n• 'Reports monawada?'\n• 'Aluth report eka?'\n• 'PDF kohomada?'`
+      si: (d) => `📅 ආයුබෝවන්! මම වාර්තා සහායකයා.\n\nඅපගේ වාර්තා ${d.reports.length}ක් ඇත.`,
+      en: (d) => `📅 Hello! I'm the Reports bot.\n\nWe have ${d.reports.length} reports.`,
+      singlish: (d) => `📅 Hello! Mama Reports bot.\n\nApe reports ${d.reports.length} k thiyenawa.`
     },
     scope: ['reports','greetings','thanks','time','date']
   },
   {
-    id: 'committee',
-    icon: '👥',
+    id: 'committee', icon: '👥',
     name: { si: 'කමිටුව', en: 'Committee', singlish: 'Committee' },
     welcome: {
-      si: (d) => `👥 ආයුබෝවන්! මම කමිටු සහායකයා.\n\nඅපගේ කමිටුවේ ${d.committee.length} දෙනෙක් සිටී. අහන්න:\n• 'කමිටුව කවුද?'\n• 'සභාපති කවුද?'\n• 'අනුශාසකවරු කවුද?'`,
-      en: (d) => `👥 Hello! I'm the Committee bot.\n\nOur committee has ${d.committee.length} members. Ask:\n• 'Who is on the committee?'\n• 'Who is the president?'\n• 'Who are the advisors?'`,
-      singlish: (d) => `👥 Hello! Mama Committee bot.\n\nApe committee eke ${d.committee.length} dennek innawa. Ahanna:\n• 'Committee kawuda?'\n• 'President kawuda?'\n• 'Advisors kawuda?'`
+      si: (d) => `👥 ආයුබෝවන්! මම කමිටු සහායකයා.\n\nඅපගේ කමිටුවේ ${d.committee.length} දෙනෙක් සිටී.`,
+      en: (d) => `👥 Hello! I'm the Committee bot.\n\nOur committee has ${d.committee.length} members.`,
+      singlish: (d) => `👥 Hello! Mama Committee bot.\n\nApe committee eke ${d.committee.length} dennek innawa.`
     },
     scope: ['committee','greetings','thanks','time','date','contact']
   },
   {
-    id: 'donate',
-    icon: '❤️',
+    id: 'donate', icon: '❤️',
     name: { si: 'ආධාර', en: 'Donate', singlish: 'Donate' },
     welcome: {
-      si: (d) => `❤️ ආයුබෝවන්! මම ආධාර සහායකයා.\n\nඔබට අපට උදව් කරන්න පුළුවන්:\n💬 WhatsApp: ${d.whatsapp}\n📞 ඇමතුම්: ${d.phone}\n\nඕනෑම කුඩා උදව්වක් වටිනවා! 🌸`,
-      en: (d) => `❤️ Hello! I'm the Donation bot.\n\nYou can help us:\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\nEvery small help matters! 🌸`,
-      singlish: (d) => `❤️ Hello! Mama Donate bot.\n\nOyata ape utte help karanna puluwan:\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\nPodi udawwak wunath watinawa! 🌸`
+      si: (d) => `❤️ ආයුබෝවන්! මම ආධාර සහායකයා.\n\n💬 WhatsApp: ${d.whatsapp}\n📞 ඇමතුම්: ${d.phone}`,
+      en: (d) => `❤️ Hello! I'm the Donation bot.\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}`,
+      singlish: (d) => `❤️ Hello! Mama Donate bot.\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}`
     },
-    scope: ['donate','contact','greetings','thanks','whatsapp']
+    scope: ['donate','contact','greetings','thanks','whatsapp_group']
   },
   {
-    id: 'kids',
-    icon: '🌸',
+    id: 'kids', icon: '🌸',
     name: { si: 'ළමා මිතුරා', en: 'Kids Buddy', singlish: 'Kids Buddy' },
     welcome: {
-      si: (d) => `🌸 හායි පොඩි එකා! මම ඔයාගේ මිතුරා.\n\nමට කියන්න:\n• 'ඔයා කවුද?'\n• 'මට කතා කරන්න'\n• 'අපේ සමාජය ගැන කියන්න'`,
-      en: (d) => `🌸 Hi little one! I'm your buddy.\n\nTell me:\n• 'Who are you?'\n• 'Talk to me'\n• 'Tell me about our society'`,
-      singlish: (d) => `🌸 Hi podi eka! Mama oyage buddy.\n\nMata kiyanna:\n• 'Oya kawuda?'\n• 'Mata katha karanna'\n• 'Ape society eka gana kiyanna'`
+      si: (d) => `🌸 හායි පොඩි එකා! මම ඔයාගේ මිතුරා.\n\nමට කියන්න මොනවද දැනගන්න ඕන කියලා!`,
+      en: (d) => `🌸 Hi little one! I'm your buddy.\n\nTell me what you want to know!`,
+      singlish: (d) => `🌸 Hi podi eka! Mama oyage buddy.\n\nMata kiyanna monawada danaganna one kiyala!`
     },
     scope: ['greetings','about','purpose','committee','gallery','thanks','time','date']
   }
 ];
-
-const BOT_DEFAULT_SCOPE = ['reports','contact','committee','donate','gallery','whatsapp','about','purpose','members','location','founder','time','date','greetings','thanks'];
 
 /* ============================================================
    🌐 i18n
    ============================================================ */
 const I18N = {
   si: {
-    "brand":"සිහින කැකුළු ළමා සමාජය",
-    "nav.home":"මුල් පිටුව","nav.donate":"ආධාර","nav.groups":"WhatsApp",
+    "brand":"සිහින කැකුළු ළමා සමාජය","nav.home":"මුල් පිටුව","nav.donate":"ආධාර","nav.groups":"WhatsApp",
     "nav.about":"අප ගැන","nav.reports":"වාර්තා","nav.gallery":"ගැලරිය","nav.form":"ප්‍රශ්නාවලිය","nav.contact":"සම්බන්ධ වන්න",
     "skip":"ප්‍රධාන අන්තර්ගතයට යන්න",
     "hero.tag":"ළමා සමාජය • 2026","hero.title1":"සිහින කැකුළු","hero.title2":"ළමා සමාජය",
     "hero.sub":"දරුවන්ගේ සිහිනවලට පියාපත් දෙමින්, ඉගෙනීමෙන්, ක්‍රීඩාවෙන් හා එකමුතුකමින් හෙට දවස ගොඩනඟමු.",
-    "hero.btn.reports":"වාර්තා බලන්න","hero.btn.gallery":"ගැලරිය බලන්න",
-    "groups.title":"අප හා එකතු වන්න (WhatsApp)",
-    "groups.notice":"අලුත් විස්තර, වැඩසටහන් සහ හදිසි අවශ්‍යතා සඳහා පහත WhatsApp සමූහයට එකතු වන්න.",
-    "donate.title":"අපට උදව් කරන්න",
-    "donate.subtitle":"ඔබේ දායකත්වය අපට වටිනවා",
-    "donate.text":"අපේ සමාජයේ දරුවන්ගේ අධ්‍යාපන කටයුතු, පොත්පත්, පැන්සල්, සහ අනෙකුත් අවශ්‍යතා සඳහා ඔබටත් දායක විය හැක. ඔබගේ කුඩා උදව්වක් පවා දරුවෙකුගේ අනාගතයට ලොකු බලපෑමක් ඇති කරයි.",
+    "hero.btn.reports":"වාර්තා බලන්න",
+    "groups.title":"අප හා එකතු වන්න (WhatsApp)","groups.notice":"අලුත් විස්තර, වැඩසටහන් සහ හදිසි අවශ්‍යතා සඳහා පහත WhatsApp සමූහයට එකතු වන්න.",
+    "donate.title":"අපට උදව් කරන්න","donate.subtitle":"ඔබේ දායකත්වය අපට වටිනවා",
+    "donate.text":"අපේ සමාජයේ දරුවන්ගේ අධ්‍යාපන කටයුතු, පොත්පත්, පැන්සල්, සහ අනෙකුත් අවශ්‍යතා සඳහා ඔබටත් දායක විය හැක.",
     "donate.contact":"WhatsApp: 071 334 3803","donate.contact2":"සාමාන්‍ය ඇමතුම්: 078 284 4838","donate.btn":"අප හා සම්බන්ධ වන්න",
-    "flags.national.title":"ශ්‍රී ලංකා ජාතික කොඩිය",
-    "flags.national.sub":"අපේ මාතෘ භූමියේ අභිමානය — සිංහල, දෙමළ, මුස්ලිම්, බර්ගර් සියලුම ජනතාවගේ එකමුතුකමේ සංකේතය.",
+    "flags.national.title":"ශ්‍රී ලංකා ජාතික කොඩිය","flags.national.sub":"අපේ මාතෘ භූමියේ අභිමානය — සියලුම ජනතාවගේ එකමුතුකමේ සංකේතය.",
     "flags.western.title":"බස්නාහිර පළාත් කොඩිය","flags.western.sub":"බස්නාහිර පළාතේ සංකේතය — අපේ පළාතේ අභිමානය.",
     "stats.members":"ළමා සමාජයේ පිරිස","stats.reports":"මාසික වාර්තා","stats.media":"Media Items","stats.founded":"ආරම්භක වර්ෂය",
     "about.title":"අප ගැන","about.name.lbl":"සමාජයේ නම:","about.date.lbl":"ආරම්භ කළ දිනය:","about.village.lbl":"ගම:","about.author.lbl":"වෙබ් අඩවිය සකස් කරන්නේ:",
@@ -902,41 +954,32 @@ const I18N = {
     "village":"තිරිවනකැටිය","committee.title":"කමිටුව හා අනුශාසකවරු",
     "reports.title":"මාසික වාර්තා","reports.notice":"වාර්තා, නම්, ලේඛන සහ PDF ගොනු මෙතනින් බලන්න පුළුවන්.",
     "reports.search":"🔍 වාර්තා සොයන්න…","reports.sort_new":"⬇️ අලුත්ම මුලින්","reports.sort_old":"⬆️ පැරණිම මුලින්","reports.empty":"ගැළපෙන වාර්තා නොමැත.",
-    "gallery.title":"ඡායාරූප හා වීඩියෝ ගැලරිය","gallery.notice":"ඡායාරූපයක් මත ක්ලික් කර විශාල කර බලන්න. ← → යතුරු වලින් ඊළඟ එකට යන්න.",
+    "gallery.title":"ඡායාරූප හා වීඩියෝ ගැලරිය","gallery.notice":"ඡායාරූපයක් මත ක්ලික් කර විශාල කර බලන්න.",
     "gallery.filter_all":"සියල්ල","gallery.filter_photo":"🖼️ ඡායාරූප","gallery.filter_video":"🎥 වීඩියෝ","gallery.empty":"මෙම පෙරහනට ගැළපෙන මාධ්‍ය නොමැත.",
     "form.title":"ප්‍රශ්නාවලිය (Google Form)","form.notice":"සහභාගිත්ව ශිල්පීය පර්යේෂණ ක්‍රමය යටතේ ප්ලාස්ටික් අවභාවිතය පිළිබඳ දත්ත රැස් කිරීම.","form.open":"නව ටැබයක විවෘත කරන්න",
-    "contact.title":"අප හා සම්බන්ධ වන්න","contact.phone":"දුරකථනය","contact.whatsapp":"WhatsApp","contact.email":"විද්‍යුත් තැපෑල","contact.youtube":"YouTube චැනලය","contact.tiktok":"TikTok","contact.address":"ලිපිනය","contact.copy":"📋 පිටපත් කරන්න",
-    "footer.credit":"නිර්මාණය: Thenuja Manumitha",
-    "share":"🔗 බෙදාගන්න","share_copied":"සබැඳිය පිටපත් කළා ✓","copied":"පිටපත් කළා ✓","copy_fail":"පිටපත් කිරීම අසාර්ථකයි",
-    "pdf":"📄 PDF","pdf.act":"බලන්න / බාගන්න ⬇️","lang.toggle":"EN",
-    "theme.dark":"තද පැහැ මාදිලියට මාරු වන්න","theme.light":"ආලෝක මාදිලියට මාරු වන්න",
-    "menu.open":"මෙනුව විවෘත කරන්න","menu.close":"මෙනුව වසන්න","top":"ඉහළට යන්න",
-    "install.aria":"App එකක් ලෙස install කරන්න","install.btn":"Install කරන්න",
-    "notif.aria":"Notifications සක්‍රීය කරන්න","notif.granted":"Notifications on","notif.denied":"Notifications blocked",
+    "contact.title":"අප හා සම්බන්ධ වන්න","contact.phone":"දුරකථනය","contact.whatsapp":"WhatsApp","contact.email":"විද්‍යුත් තැපෑල","contact.youtube":"YouTube","contact.tiktok":"TikTok","contact.address":"ලිපිනය","contact.copy":"📋 පිටපත්",
+    "footer.credit":"නිර්මාණය: Thenuja Manumitha","share":"🔗 බෙදාගන්න","share_copied":"සබැඳිය පිටපත් කළා ✓","copied":"පිටපත් කළා ✓","copy_fail":"පිටපත් කිරීම අසාර්ථකයි",
+    "pdf":"📄 PDF","pdf.act":"බලන්න / බාගන්න ⬇️","lang.toggle":"EN","theme.dark":"තද පැහැ","theme.light":"ආලෝක","menu.open":"මෙනුව","menu.close":"වසන්න","top":"ඉහළට",
+    "install.aria":"App ලෙස install","notif.aria":"Notifications","notif.granted":"Notifications on","notif.denied":"Blocked",
     "ai.title":"සිහින කැකුළු AI","ai.status":"Online","ai.placeholder":"ඔබේ ප්‍රශ්නය ටයිප් කරන්න...",
     "ai.quick.reports":"📅 වාර්තා","ai.quick.contact":"📞 සම්බන්ධතා","ai.quick.committee":"👥 කමිටුව","ai.quick.donate":"❤️ ආධාර","ai.quick.gallery":"🖼️ ගැලරිය","ai.quick.whatsapp":"🆘 WhatsApp",
-    "ai.bot.choose":"Bot එකක් තෝරන්න",
-    "ai.install.instructions":"📲 App එකක් ලෙස install කිරීමට:\n\n• Chrome/Edge: Menu (⋮) → 'Install app' හෝ 'Add to Home Screen'\n• iOS Safari: Share → 'Add to Home Screen'\n• Firefox: Menu → 'Install'\n\nඉන්පසු app එක home screen එකෙන් open කරන්න.",
-    "notif.welcome":"සිහින කැකුළු App එකට සාදරයෙන් පිළිගනිමු! 🌸 අලුත් වාර්තා සහ වැඩසටහන් ගැන දැනුම්දීම් ලැබෙනු ඇත.",
-    "notif.test":"🔔 Notification test! සිහින කැකුළු App එකේ notifications වැඩ කරනවා ✨",
-    "notif.tip":"💡 අලුත් වාර්තා දාන්න අපේ WhatsApp ගෲප් එකට එකතු වෙන්න."
+    "app.banner.title":"සිහින කැකුළු App ලෙස install කරන්න","app.banner.text":"හෝම් ස්ක්‍රීන් එකට එකතු කර ඉක්මනින් open කරන්න","app.banner.btn":"Install",
+    "app.install.instructions":"📲 App එකක් ලෙස install කිරීමට:\n\n• iPhone Safari: Share (⬆️) → 'Add to Home Screen'\n• Chrome/Edge: Menu (⋮) → 'Install app' හෝ 'Add to Home Screen'\n• Firefox: Menu → 'Install'\n\nඉන්පසු app එක home screen එකෙන් open කරන්න.",
+    "notif.welcome":"සිහින කැකුළු App එකට සාදරයෙන් පිළිගනිමු! 🌸","notif.test":"🔔 Notification test! වැඩ කරනවා ✨","notif.tip":"💡 අලුත් වාර්තා දාන්න අපේ WhatsApp ගෲප් එකට එකතු වෙන්න.",
+    "call":"📞 අමතන්න","whatsapp.btn":"💬 WhatsApp"
   },
   en: {
-    "brand":"Sihina Kakulu Children's Society",
-    "nav.home":"Home","nav.donate":"Donate","nav.groups":"WhatsApp",
+    "brand":"Sihina Kakulu Children's Society","nav.home":"Home","nav.donate":"Donate","nav.groups":"WhatsApp",
     "nav.about":"About","nav.reports":"Reports","nav.gallery":"Gallery","nav.form":"Survey","nav.contact":"Contact",
     "skip":"Skip to main content",
     "hero.tag":"Children's Society • 2026","hero.title1":"Sihina Kakulu","hero.title2":"Children's Society",
     "hero.sub":"Giving wings to children's dreams — building tomorrow through learning, sports, and unity.",
-    "hero.btn.reports":"View Reports","hero.btn.gallery":"View Gallery",
-    "groups.title":"Join With Us (WhatsApp)",
-    "groups.notice":"Join the following WhatsApp group for news, events, and emergency requirements.",
-    "donate.title":"Support Us",
-    "donate.subtitle":"Your contribution matters to us",
-    "donate.text":"You can contribute to the educational activities, books, stationery, and other needs of the children in our society. Even your small help makes a big impact on a child's future.",
+    "hero.btn.reports":"View Reports",
+    "groups.title":"Join With Us (WhatsApp)","groups.notice":"Join the following WhatsApp group for news, events, and emergency requirements.",
+    "donate.title":"Support Us","donate.subtitle":"Your contribution matters to us",
+    "donate.text":"You can contribute to the educational activities, books, stationery, and other needs of the children in our society.",
     "donate.contact":"WhatsApp: 071 334 3803","donate.contact2":"Normal Calls: 078 284 4838","donate.btn":"Contact Us",
-    "flags.national.title":"National Flag of Sri Lanka",
-    "flags.national.sub":"The pride of our motherland — a symbol of unity among all Sri Lankans.",
+    "flags.national.title":"National Flag of Sri Lanka","flags.national.sub":"The pride of our motherland — a symbol of unity among all Sri Lankans.",
     "flags.western.title":"Western Province Flag","flags.western.sub":"The symbol of the Western Province — the pride of our province.",
     "stats.members":"Society Members","stats.reports":"Monthly Reports","stats.media":"Media Items","stats.founded":"Founded Year",
     "about.title":"About Us","about.name.lbl":"Society Name:","about.date.lbl":"Founded Date:","about.village.lbl":"Village:","about.author.lbl":"Website by:",
@@ -945,24 +988,19 @@ const I18N = {
     "village":"Thirivanaketiya","committee.title":"Committee & Advisors",
     "reports.title":"Monthly Reports","reports.notice":"View reports, names, documents, and PDF files here.",
     "reports.search":"🔍 Search reports…","reports.sort_new":"⬇️ Newest first","reports.sort_old":"⬆️ Oldest first","reports.empty":"No matching reports found.",
-    "gallery.title":"Photo & Video Gallery","gallery.notice":"Click a photo to enlarge. Use ← → keys to navigate.",
+    "gallery.title":"Photo & Video Gallery","gallery.notice":"Click a photo to enlarge.",
     "gallery.filter_all":"All","gallery.filter_photo":"🖼️ Photos","gallery.filter_video":"🎥 Videos","gallery.empty":"No media matches this filter.",
     "form.title":"Survey (Google Form)","form.notice":"Data collection on plastic misuse under participatory action research methodology.","form.open":"Open in new tab",
-    "contact.title":"Contact Us","contact.phone":"Phone","contact.whatsapp":"WhatsApp","contact.email":"Email","contact.youtube":"YouTube Channel","contact.tiktok":"TikTok","contact.address":"Address","contact.copy":"📋 Copy",
-    "footer.credit":"Made by Thenuja Manumitha",
-    "share":"🔗 Share","share_copied":"Link copied ✓","copied":"Copied ✓","copy_fail":"Copy failed",
-    "pdf":"📄 PDF","pdf.act":"View / Download ⬇️","lang.toggle":"සිං",
-    "theme.dark":"Switch to dark mode","theme.light":"Switch to light mode",
-    "menu.open":"Open menu","menu.close":"Close menu","top":"Back to top",
-    "install.aria":"Install as App","install.btn":"Install",
-    "notif.aria":"Enable notifications","notif.granted":"Notifications on","notif.denied":"Notifications blocked",
+    "contact.title":"Contact Us","contact.phone":"Phone","contact.whatsapp":"WhatsApp","contact.email":"Email","contact.youtube":"YouTube","contact.tiktok":"TikTok","contact.address":"Address","contact.copy":"📋 Copy",
+    "footer.credit":"Made by Thenuja Manumitha","share":"🔗 Share","share_copied":"Link copied ✓","copied":"Copied ✓","copy_fail":"Copy failed",
+    "pdf":"📄 PDF","pdf.act":"View / Download ⬇️","lang.toggle":"සිං","theme.dark":"Dark","theme.light":"Light","menu.open":"Open menu","menu.close":"Close menu","top":"Top",
+    "install.aria":"Install as App","notif.aria":"Notifications","notif.granted":"Notifications on","notif.denied":"Blocked",
     "ai.title":"Sihina Kakulu AI","ai.status":"Online","ai.placeholder":"Type your question...",
     "ai.quick.reports":"📅 Reports","ai.quick.contact":"📞 Contact","ai.quick.committee":"👥 Committee","ai.quick.donate":"❤️ Donate","ai.quick.gallery":"🖼️ Gallery","ai.quick.whatsapp":"🆘 WhatsApp",
-    "ai.bot.choose":"Choose a bot",
-    "ai.install.instructions":"📲 To install as an App:\n\n• Chrome/Edge: Menu (⋮) → 'Install app' or 'Add to Home Screen'\n• iOS Safari: Share → 'Add to Home Screen'\n• Firefox: Menu → 'Install'\n\nThen open the app from your home screen.",
-    "notif.welcome":"Welcome to Sihina Kakulu App! 🌸 You'll get notified about new reports and events.",
-    "notif.test":"🔔 Notification test! Sihina Kakulu App notifications are working ✨",
-    "notif.tip":"💡 Join our WhatsApp group for new reports."
+    "app.banner.title":"Install Sihina Kakulu as an App","app.banner.text":"Add to home screen to open faster","app.banner.btn":"Install",
+    "app.install.instructions":"📲 To install as an App:\n\n• iPhone Safari: Share (⬆️) → 'Add to Home Screen'\n• Chrome/Edge: Menu (⋮) → 'Install app' or 'Add to Home Screen'\n• Firefox: Menu → 'Install'\n\nThen open from your home screen.",
+    "notif.welcome":"Welcome to Sihina Kakulu App! 🌸","notif.test":"🔔 Notification test! Working ✨","notif.tip":"💡 Join our WhatsApp group for new reports.",
+    "call":"📞 Call","whatsapp.btn":"💬 WhatsApp"
   }
 };
 
@@ -972,116 +1010,110 @@ const MONTHS = {
 };
 
 /* ============================================================
-   🗣️ SINGLISH ENGINE
+   🗣️ SINGLISH + TYPO ENGINE
    ============================================================ */
-const SINGLISH_MARKERS = [
-  'mata','oya','oyata','api','ape','denna','denne','kohomada','kohomd','mokakda','mokeda','monawada','kawuda','koheda','kohenda',
-  'karanna','ona','one','thiyena','thiyenawa','thiyenne','puluwanda','puluwan','danna','ganna','balanna','kiyanna','kiyanne',
-  'hondai','naha','ne','nae','owu','ow','karala','kiyala','walata','vithara','withara','ekata','ekath','ekak','eka',
-  'kattiya','lamai','lamayata','gedara','pansal','iskole','iskol','wedagath','sarakku','kiyanawada','pennanna','penn',
-  'magen','mage','oyage','ape','apita','apita','mokada','ai','kawda','kohoma','nattan','naththam','kiyan','katha',
-  'karaganna','ganna','gaththa','giya','awa','yanna','enna','awilla','machan','malli','akka','ayya','nangi','putha','duwa'
-];
+const SINGLISH_MARKERS = ['mata','oya','oyata','api','ape','denna','denne','kohomada','kohomd','mokakda','mokeda','monawada','kawuda','koheda','kohenda','karanna','ona','one','thiyena','thiyenawa','puluwanda','puluwan','danna','ganna','balanna','kiyanna','kiyanne','hondai','naha','ne','nae','owu','ow','karala','kiyala','walata','withara','ekata','ekath','ekak','eka','kattiya','lamai','lamayata','gedara','pansal','iskole','iskol','wedagath','sarakku','kiyanawada','pennanna','magen','mage','oyage','apita','mokada','ai','kawda','kohoma','nattan','naththam','kiyan','katha','karaganna','gaththa','giya','awa','yanna','enna','machan','malli','akka','ayya','nangi','putha','duwa'];
 
 const SINGLISH_KEYWORDS = {
-  greetings: ['hi','hello','hey','ayubowan','hay','kohomada','kohomd','suba','subha','machan','machn','ado','mchn'],
-  thanks: ['thank','thanks','sthuthi','stuthi','sthuti','thx'],
-  time: ['time','wela','welaawa','welawa','taim'],
-  date: ['date','ada','dinaya','dawasa','today'],
-  reports: ['report','reports','ripot','riport','wartha','warthaa','warthawa','document','doc','lekhana','lekana'],
-  contact: ['contact','phone','email','call','number','nambar','nambara','fon','phone','denna','konta','kontact','komtact'],
-  committee: ['committee','kmitiya','komitiya','komity','member','members','president','secretary','treasurer','who','kawuda','kawda','lead','sabhapathi','sabapathi'],
-  donate: ['donate','donation','help','support','contribute','adara','aadhara','udaw','udau','dayaka','salli','mudel','dana','dhanaya','dhanayak'],
-  gallery: ['gallery','photo','picture','video','galeriya','galerya','photo','photos','picture','pic','video','vidio','poto','photos'],
-  whatsapp_group: ['whatsapp','whatsap','watsapp','group','gruup','grup','join','ekathu','ekatu','lanchana','link','whtsapp','watssap'],
-  about: ['about','who are you','what is','society','society eka','samajaya','samaj','gana','gana','mokakda','mokada','mokeda','kawuda'],
-  location: ['where','location','address','village','lipinaya','lipina','koheda','kohenda','gama','gam','village','adress'],
-  purpose: ['purpose','goal','aim','mission','aramuna','aramun','ilakka','target'],
-  members: ['how many','members','count','kidek','kidda','kidek','kiya','kiyada','kiyadha'],
-  founder: ['who made','creator','founder','developer','built','haduwa','hadapu','niramana','niramana','hada','hadaapu']
+  greetings:['hi','hello','hey','ayubowan','hay','kohomada','kohomd','suba','machan','mchn','ado'],
+  thanks:['thank','thanks','sthuthi','stuthi','sthuti','thx'],
+  time:['time','wela','welaawa','welawa','taim'],
+  date:['date','ada','dinaya','dawasa','today'],
+  reports:['report','reports','ripot','riport','wartha','warthaa','warthawa','document','doc','lekhana','lekana'],
+  contact:['contact','phone','email','call','number','nambar','nambara','fon','konta','kontact','komtact'],
+  committee:['committee','kmitiya','komitiya','komity','member','members','president','secretary','treasurer','who','kawuda','kawda','lead','sabhapathi','sabapathi'],
+  donate:['donate','donation','help','support','contribute','adara','aadhara','udaw','udau','dayaka','salli','mudel','dana','dhanaya','dhanayak'],
+  gallery:['gallery','photo','picture','video','galeriya','galerya','photos','pic','vidio','poto'],
+  whatsapp_group:['whatsapp','whatsap','watsapp','group','gruup','grup','join','ekathu','ekatu','lanchana','link','whtsapp'],
+  about:['about','who are you','what is','society','samajaya','samaj','gana','mokakda','mokada','mokeda','kawuda'],
+  location:['where','location','address','village','lipinaya','lipina','koheda','kohenda','gama','gam','adress'],
+  purpose:['purpose','goal','aim','mission','aramuna','aramun','ilakka','target'],
+  members:['how many','members','count','kidek','kidda','kiya','kiyada','dennek'],
+  founder:['who made','creator','founder','developer','built','haduwa','hadapu','niramana','hada','hadaapu']
 };
 
-/* Levenshtein distance for typo tolerance */
+const SI_KEYWORDS = {
+  greetings: ['ආයුබෝවන්','හායි','හෙලෝ','සුබ','කොහොමද','කොහොම'],
+  thanks: ['ස්තූති','ස්තුති'],
+  time: ['වෙලාව','ටයිම්'],
+  date: ['දිනය','අද'],
+  reports: ['වාර්තා','ලේඛන','රිපෝට්'],
+  contact: ['සම්බන්ධ','දුරකථන','ඊමේල්','අමතන්න','නම්බර්','ෆෝන්','කෝල්'],
+  committee: ['කමිටු','සභාපති','සාමාජික','ලේඛිකා','කවුද'],
+  donate: ['ආධාර','උදව්','දායක','සල්ලි','මුදල්','දන්'],
+  gallery: ['ගැලරිය','ඡායාරූප','පින්තූර','වීඩියෝ','ෆොටෝ'],
+  whatsapp_group: ['සමූහ','එකතු','ගෲප්','ග්‍රූප්'],
+  about: ['අප','ගැන','සමාජය','මොකක්ද','කවුද'],
+  location: ['ලිපිනය','කොහෙද','ගම','ලිපින'],
+  purpose: ['අරමුණ','අරමුණු','ඉලක්ක'],
+  members: ['කීදෙනෙක්','සාමාජික'],
+  founder: ['හැදුවේ','නිර්මාණය','හදපු']
+};
+
 function levenshtein(a, b){
   a = String(a).toLowerCase(); b = String(b).toLowerCase();
   const m = a.length, n = b.length;
-  if(!m) return n;
-  if(!n) return m;
-  const dp = Array.from({length: m + 1}, () => new Array(n + 1).fill(0));
+  if(!m) return n; if(!n) return m;
+  const dp = Array.from({length: m+1}, () => new Array(n+1).fill(0));
   for(let i = 0; i <= m; i++) dp[i][0] = i;
   for(let j = 0; j <= n; j++) dp[0][j] = j;
-  for(let i = 1; i <= m; i++){
-    for(let j = 1; j <= n; j++){
-      const cost = a[i-1] === b[j-1] ? 0 : 1;
-      dp[i][j] = Math.min(dp[i-1][j] + 1, dp[i][j-1] + 1, dp[i-1][j-1] + cost);
-    }
+  for(let i = 1; i <= m; i++) for(let j = 1; j <= n; j++){
+    const c = a[i-1] === b[j-1] ? 0 : 1;
+    dp[i][j] = Math.min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+c);
   }
   return dp[m][n];
 }
-
-/* fuzzy match: does text contain keyword (within distance) */
 function fuzzyMatch(text, keyword, maxDist){
   maxDist = maxDist == null ? 1 : maxDist;
-  const s = String(text).toLowerCase();
-  const kw = String(keyword).toLowerCase();
+  const s = String(text).toLowerCase(), kw = String(keyword).toLowerCase();
   if(!kw) return false;
   if(s.includes(kw)) return true;
-  // Tokenize
   const tokens = s.split(/[\s,.!?;:()\[\]{}"'\-]+/).filter(Boolean);
-  for(const tok of tokens){
-    const d = levenshtein(tok, kw);
-    if(d <= maxDist) return true;
-  }
+  for(const tok of tokens){ if(levenshtein(tok, kw) <= maxDist) return true; }
   return false;
 }
-
 function looksLikeSinglish(text){
   const s = String(text).toLowerCase().trim();
-  if(!s) return false;
-  // Contains Sinhala script? Not Singlish
-  if(/[\u0D80-\u0DFF]/.test(s)) return false;
-  // Check markers
-  for(const m of SINGLISH_MARKERS){
-    if(new RegExp('\\b' + m + '\\b', 'i').test(s)) return true;
-  }
-  // Also check against Singlish keyword list
-  for(const k in SINGLISH_KEYWORDS){
-    for(const kw of SINGLISH_KEYWORDS[k]){
-      if(fuzzyMatch(s, kw, 1)) return true;
-    }
-  }
+  if(!s || /[\u0D80-\u0DFF]/.test(s)) return false;
+  for(const m of SINGLISH_MARKERS){ if(new RegExp('\\b' + m + '\\b','i').test(s)) return true; }
+  for(const k in SINGLISH_KEYWORDS){ for(const kw of SINGLISH_KEYWORDS[k]){ if(fuzzyMatch(s, kw, 1)) return true; } }
   return false;
 }
-
 function detectMode(text){
-  // returns 'si' | 'en' | 'singlish'
   const s = String(text || '');
   if(/[\u0D80-\u0DFF]/.test(s)) return 'si';
   if(looksLikeSinglish(s)) return 'singlish';
   return 'en';
 }
+function detectIntent(text){
+  const s = String(text || '').toLowerCase().trim();
+  if(!s) return 'fallback';
+  const order = ['greetings','thanks','time','date','reports','contact','committee','donate','gallery','whatsapp_group','location','purpose','members','founder','about'];
+  for(const key of order){
+    for(const kw of (SINGLISH_KEYWORDS[key]||[])){ if(fuzzyMatch(s, kw, kw.length <= 4 ? 1 : 2)) return key; }
+  }
+  for(const key of order){
+    for(const kw of (SI_KEYWORDS[key]||[])){ if(s.includes(kw)) return key; }
+  }
+  return 'fallback';
+}
 
 /* ============================================================
-   🤖 BOT KNOWLEDGE (multi-language)
+   🤖 AI RESPONSES
    ============================================================ */
 function aiData(){
   return {
-    brand: t('brand'),
-    village: t('village'),
-    founded: fmtDate(FOUNDED_DATE),
-    members: MEMBERS_TOTAL,
-    phone: CONTACT.phone,
-    whatsapp: CONTACT.whatsapp,
-    email: CONTACT.email,
-    youtube: CONTACT.youtube,
-    tiktok: CONTACT.tiktok,
+    brand: t('brand'), village: t('village'), founded: fmtDate(FOUNDED_DATE), members: MEMBERS_TOTAL,
+    phone: CONTACT.phone, whatsapp: CONTACT.whatsapp, email: CONTACT.email,
+    youtube: CONTACT.youtube, tiktok: CONTACT.tiktok,
     address: LANG === 'en' ? CONTACT.address_en : CONTACT.address_si,
     purpose: t('about.purpose'),
-    reports: REPORTS.map(r => ({ title: tr(r, 'title'), date: fmtDate(r.date) })),
+    reports: REPORTS.map(r => ({ title: tr(r,'title'), date: fmtDate(r.date) })),
     committee: COMMITTEE.map(c => ({
       icon: c.icon,
-      name: c['name_' + LANG] || c.name_si,
-      role: ROLES[c.key] ? ROLES[c.key][LANG] : c.key
+      name: c['name_'+LANG] || c.name_si,
+      role: ROLES[c.key] ? ROLES[c.key][LANG] : c.key,
+      phone: c.phone
     })),
     imgCount: GALLERY.filter(g => g.type === 'image').length,
     vidCount: GALLERY.filter(g => g.type === 'video').length,
@@ -1089,132 +1121,68 @@ function aiData(){
   };
 }
 
-/* Response generators for 3 languages */
 const AI_RESPONSES = {
   reports: {
     si: (d) => `📅 අපගේ වාර්තා ${d.reports.length}ක් ඇත:\n\n${d.reports.map((r,i)=>`${i+1}. ${r.title}\n   └ ${r.date}`).join('\n\n')}\n\n📌 වාර්තා කොටසට ගොස් බලන්න!`,
-    en: (d) => `📅 We have ${d.reports.length} reports:\n\n${d.reports.map((r,i)=>`${i+1}. ${r.title}\n   └ ${r.date}`).join('\n\n')}\n\n📌 Visit the Reports section to view them!`,
+    en: (d) => `📅 We have ${d.reports.length} reports:\n\n${d.reports.map((r,i)=>`${i+1}. ${r.title}\n   └ ${r.date}`).join('\n\n')}\n\n📌 Visit Reports section!`,
     singlish: (d) => `📅 Ape reports ${d.reports.length} k thiyenawa:\n\n${d.reports.map((r,i)=>`${i+1}. ${r.title}\n   └ ${r.date}`).join('\n\n')}\n\n📌 Reports section ekata gihin balanna!`
   },
   contact: {
     si: (d) => `📞 අප හා සම්බන්ධ වන්න:\n\n📱 දුරකථන: ${d.phone}\n💬 WhatsApp: ${d.whatsapp}\n📧 Email: ${d.email}\n▶️ YouTube: ${d.youtube}\n🎵 TikTok: ${d.tiktok}\n📍 ලිපිනය: ${d.address}`,
     en: (d) => `📞 Contact us:\n\n📱 Phone: ${d.phone}\n💬 WhatsApp: ${d.whatsapp}\n📧 Email: ${d.email}\n▶️ YouTube: ${d.youtube}\n🎵 TikTok: ${d.tiktok}\n📍 Address: ${d.address}`,
-    singlish: (d) => `📞 Ape contact details:\n\n📱 Phone: ${d.phone}\n💬 WhatsApp: ${d.whatsapp}\n📧 Email: ${d.email}\n▶️ YouTube: ${d.youtube}\n🎵 TikTok: ${d.tiktok}\n📍 Address: ${d.address}`
+    singlish: (d) => `📞 Ape contact:\n\n📱 Phone: ${d.phone}\n💬 WhatsApp: ${d.whatsapp}\n📧 Email: ${d.email}\n▶️ YouTube: ${d.youtube}\n🎵 TikTok: ${d.tiktok}\n📍 Address: ${d.address}`
   },
   committee: {
-    si: (d) => `👥 අපගේ කමිටුව සහ අනුශාසකවරු:\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}`).join('\n\n')}`,
-    en: (d) => `👥 Our committee & advisors:\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}`).join('\n\n')}`,
-    singlish: (d) => `👥 Ape committee eka:\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}`).join('\n\n')}`
+    si: (d) => `👥 අපගේ කමිටුව (${d.committee.length} දෙනෙක්):\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}${c.phone ? '\n   📞 ' + c.phone : ''}`).join('\n\n')}`,
+    en: (d) => `👥 Our committee (${d.committee.length} members):\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}${c.phone ? '\n   📞 ' + c.phone : ''}`).join('\n\n')}`,
+    singlish: (d) => `👥 Ape committee (${d.committee.length} dennek):\n\n${d.committee.map(c=>`${c.icon} ${c.name}\n   └ ${c.role}${c.phone ? '\n   📞 ' + c.phone : ''}`).join('\n\n')}`
   },
   donate: {
-    si: (d) => `❤️ ඔබට අපට ආධාර කළ හැක:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 ඇමතුම්: ${d.phone}\n\nඕනෑම කුඩා උදව්වක් දරුවෙකුගේ අනාගතයට ලොකු යහපතක්! 🌸`,
-    en: (d) => `❤️ You can support us:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\nEvery small help makes a big impact on a child's future! 🌸`,
-    singlish: (d) => `❤️ Oyata ape utte help karanna puluwan:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\nPodi udawwak wunath lamayage future ekata loku impact ekak! 🌸`
+    si: (d) => `❤️ අපට ආධාර කරන්න:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 ඇමතුම්: ${d.phone}\n\n💝 ඕනෑම කුඩා උදව්වක් වටිනවා!`,
+    en: (d) => `❤️ Support us:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\n💝 Every small help matters!`,
+    singlish: (d) => `❤️ Ape utte help karanna:\n\n💬 WhatsApp: ${d.whatsapp}\n📞 Calls: ${d.phone}\n\n💝 Podi udawwak wunath watinawa!`
   },
   gallery: {
-    si: (d) => `🖼️ අපගේ ගැලරියේ:\n\n📸 ඡායාරූප: ${d.imgCount}\n🎥 වීඩියෝ: ${d.vidCount}\n\n📌 ගැලරිය කොටසට ගොස් බලන්න!`,
-    en: (d) => `🖼️ In our gallery:\n\n📸 Photos: ${d.imgCount}\n🎥 Videos: ${d.vidCount}\n\n📌 Visit the Gallery section to explore!`,
-    singlish: (d) => `🖼️ Ape gallery eke:\n\n📸 Photos: ${d.imgCount}\n🎥 Videos: ${d.vidCount}\n\n📌 Gallery section ekata gihin balanna!`
+    si: (d) => `🖼️ ගැලරියේ:\n\n📸 ඡායාරූප: ${d.imgCount}\n🎥 වීඩියෝ: ${d.vidCount}\n\n📌 ගැලරිය කොටසට ගොස් බලන්න!`,
+    en: (d) => `🖼️ In gallery:\n\n📸 Photos: ${d.imgCount}\n🎥 Videos: ${d.vidCount}\n\n📌 Visit Gallery section!`,
+    singlish: (d) => `🖼️ Gallery eke:\n\n📸 Photos: ${d.imgCount}\n🎥 Videos: ${d.vidCount}\n\n📌 Gallery section ekata gihin balanna!`
   },
   whatsapp_group: {
-    si: (d) => `🟢 WhatsApp සමූහයට එකතු වන්න:\n\n${d.whatsappGroup}\n\n☝️ ඉහත link එක ක්ලික් කරන්න.`,
-    en: (d) => `🟢 Join our WhatsApp group:\n\n${d.whatsappGroup}\n\n☝️ Click the link above.`,
-    singlish: (d) => `🟢 Ape WhatsApp group ekata join wela ganna:\n\n${d.whatsappGroup}\n\n☝️ Above link eka click karanna.`
+    si: (d) => `🟢 WhatsApp සමූහයට එකතු වන්න:\n\n${d.whatsappGroup}\n\n☝️ Link එක ක්ලික් කරන්න!`,
+    en: (d) => `🟢 Join our WhatsApp group:\n\n${d.whatsappGroup}\n\n☝️ Click the link above!`,
+    singlish: (d) => `🟢 Ape WhatsApp group ekata join wela ganna:\n\n${d.whatsappGroup}\n\n☝️ Above link eka click karanna!`
   },
   about: {
-    si: (d) => `🌸 ${d.brand}\n\n📍 ${d.village}\n📅 ආරම්භය: ${d.founded}\n👥 සාමාජිකයන්: ${d.members}\n\n🎯 අපගේ අරමුණ:\n${d.purpose}`,
+    si: (d) => `🌸 ${d.brand}\n\n📍 ${d.village}\n📅 ආරම්භය: ${d.founded}\n👥 සාමාජිකයන්: ${d.members}\n\n🎯 අරමුණ:\n${d.purpose}`,
     en: (d) => `🌸 ${d.brand}\n\n📍 ${d.village}\n📅 Founded: ${d.founded}\n👥 Members: ${d.members}\n\n🎯 Our purpose:\n${d.purpose}`,
-    singlish: (d) => `🌸 ${d.brand}\n\n📍 ${d.village}\n📅 Start: ${d.founded}\n👥 Members: ${d.members}\n\n🎯 Ape purpose:\n${d.purpose}`
+    singlish: (d) => `🌸 ${d.brand}\n\n📍 ${d.village}\n📅 Start: ${d.founded}\n👥 Members: ${d.members}\n\n🎯 Purpose:\n${d.purpose}`
   },
-  location: {
-    si: (d) => `📍 අපගේ ලිපිනය:\n${d.address}`,
-    en: (d) => `📍 Our address:\n${d.address}`,
-    singlish: (d) => `📍 Ape address:\n${d.address}`
-  },
-  members: {
-    si: (d) => `👥 අපගේ සමාජයේ සාමාජිකයන් ${d.members}ක් සිටී.`,
-    en: (d) => `👥 Our society has ${d.members} members.`,
-    singlish: (d) => `👥 Ape society eke members ${d.members} k innawa.`
-  },
-  purpose: {
-    si: (d) => `🎯 අපගේ අරමුණ:\n${d.purpose}`,
-    en: (d) => `🎯 Our purpose:\n${d.purpose}`,
-    singlish: (d) => `🎯 Ape purpose:\n${d.purpose}`
-  },
-  founder: {
-    si: () => `✍️ මෙම වෙබ් අඩවිය සකස් කළේ: Thenuja Manumitha`,
-    en: () => `✍️ This website was built by: Thenuja Manumitha`,
-    singlish: () => `✍️ Meka hadapu kenek: Thenuja Manumitha`
-  },
-  thanks: {
-    si: () => `ස්තූතියි! 😊 තව යමක් අහන්න පුළුවන්.`,
-    en: () => `You're welcome! 😊 Feel free to ask anything else.`,
-    singlish: () => `Sthuthi! 😊 Thawa yamak ahanna puluwan.`
-  },
+  location: { si: (d) => `📍 ලිපිනය:\n${d.address}`, en: (d) => `📍 Address:\n${d.address}`, singlish: (d) => `📍 Address:\n${d.address}` },
+  members: { si: (d) => `👥 සාමාජිකයන් ${d.members}ක් සිටී.`, en: (d) => `👥 ${d.members} members.`, singlish: (d) => `👥 Members ${d.members} k innawa.` },
+  purpose: { si: (d) => `🎯 ${d.purpose}`, en: (d) => `🎯 ${d.purpose}`, singlish: (d) => `🎯 ${d.purpose}` },
+  founder: { si: () => `✍️ නිර්මාණය: Thenuja Manumitha`, en: () => `✍️ Made by: Thenuja Manumitha`, singlish: () => `✍️ Meka hadapu kenek: Thenuja Manumitha` },
+  thanks: { si: () => `ස්තූතියි! 😊`, en: () => `You're welcome! 😊`, singlish: () => `Sthuthi! 😊` },
   time: {
-    si: () => `🕐 දැන් වෙලාව: ${new Date().toLocaleTimeString('si-LK')}`,
-    en: () => `🕐 Current time: ${new Date().toLocaleTimeString('en-US')}`,
-    singlish: () => `🕐 Dan welaawa: ${new Date().toLocaleTimeString('en-US')}`
+    si: () => `🕐 වෙලාව: ${new Date().toLocaleTimeString('si-LK')}`,
+    en: () => `🕐 Time: ${new Date().toLocaleTimeString('en-US')}`,
+    singlish: () => `🕐 Welaawa: ${new Date().toLocaleTimeString('en-US')}`
   },
   date: {
-    si: () => `📅 අද දිනය: ${new Date().toLocaleDateString('si-LK', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`,
-    en: () => `📅 Today: ${new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`,
-    singlish: () => `📅 Ada dawasa: ${new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`
+    si: () => `📅 අද: ${new Date().toLocaleDateString('si-LK',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`,
+    en: () => `📅 Today: ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`,
+    singlish: () => `📅 Ada: ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`
   },
   greetings: {
-    si: (d) => `ආයුබෝවන්! 🌸 කොහොමද? මම ${d.brand} AI සහායකයා. වාර්තා, සම්බන්ධතා, කමිටුව, ගැලරිය ගැන අහන්න!`,
-    en: (d) => `Hello! 🌸 How are you? I'm the ${d.brand} AI assistant. Ask about reports, contact, committee, gallery!`,
-    singlish: (d) => `Ayubowan! 🌸 Kohomada? Mama ${d.brand} AI helper. Reports, contact, committee, gallery gana ahanna!`
+    si: (d) => `ආයුබෝවන්! 🌸 කොහොමද? මම ${d.brand} AI. වාර්තා, සම්බන්ධතා, කමිටුව, ගැලරිය ගැන අහන්න!`,
+    en: (d) => `Hello! 🌸 How are you? I'm the ${d.brand} AI. Ask about reports, contact, committee, gallery!`,
+    singlish: (d) => `Ayubowan! 🌸 Kohomada? Mama ${d.brand} AI. Reports, contact, committee, gallery gana ahanna!`
   },
   fallback: {
-    si: "මට ඒක හරියට තේරුණේ නැහැ 😅\n\nඔබට අහන්න පුළුවන්:\n• 'වාර්තා මොනවද?'\n• 'සම්බන්ධතා දෙන්න'\n• 'කමිටුව කවුද?'\n• 'ආධාර කරන්නේ කොහොමද?'\n• 'WhatsApp ගෲප් එක'",
-    en: "I didn't quite understand that 😅\n\nTry asking:\n• 'What reports do you have?'\n• 'Give me contact info'\n• 'Who is on the committee?'\n• 'How can I donate?'\n• 'WhatsApp group link'",
-    singlish: "Mata eka hariyata therune na 😅\n\nMata ahanna puluwan:\n• 'Reports monawada?'\n• 'Contact denna'\n• 'Committee kawuda?'\n• 'Adara karanne kohomada?'\n• 'WhatsApp group eka?'"
+    si: "මට ඒක තේරුණේ නෑ 😅\n\nඅහන්න:\n• 'වාර්තා මොනවද?'\n• 'සම්බන්ධතා දෙන්න'\n• 'කමිටුව කවුද?'\n• 'ආධාර කරන්නේ කොහොමද?'\n• 'WhatsApp ගෲප් එක'",
+    en: "I didn't get that 😅\n\nTry:\n• 'What reports?'\n• 'Contact info'\n• 'Committee members?'\n• 'How to donate?'\n• 'WhatsApp group'",
+    singlish: "Mata eka therune na 😅\n\nAhanna:\n• 'Reports monawada?'\n• 'Contact denna'\n• 'Committee kawuda?'\n• 'Adara kohomada?'\n• 'WhatsApp group eka'"
   }
 };
-
-/* detect intent using fuzzy matching across si/singlish/en keywords */
-function detectIntent(text){
-  const s = String(text || '').toLowerCase().trim();
-  if(!s) return 'fallback';
-
-  const order = ['greetings','thanks','time','date','reports','contact','committee','donate','gallery','whatsapp_group','location','purpose','members','founder','about'];
-
-  // Check Singlish + English keyword map (fuzzy)
-  for(const key of order){
-    const words = SINGLISH_KEYWORDS[key] || [];
-    for(const kw of words){
-      if(fuzzyMatch(s, kw, kw.length <= 4 ? 1 : 2)) return key;
-    }
-  }
-
-  // Check Sinhala keywords
-  const siKeywords = {
-    greetings: ['ආයුබෝවන්','හායි','හෙලෝ','සුබ','කොහොමද','කොහොම'],
-    thanks: ['ස්තූති','ස්තුති'],
-    time: ['වෙලාව','ටයිම්'],
-    date: ['දිනය','අද'],
-    reports: ['වාර්තා','ලේඛන','රිපෝට්'],
-    contact: ['සම්බන්ධ','දුරකථන','ඊමේල්','අමතන්න','නම්බර්','ෆෝන්','කෝල්'],
-    committee: ['කමිටු','සභාපති','සාමාජික','ලේඛිකා','කවුද'],
-    donate: ['ආධාර','උදව්','දායක','සල්ලි','මුදල්','දන්'],
-    gallery: ['ගැලරිය','ඡායාරූප','පින්තූර','වීඩියෝ','ෆොටෝ'],
-    whatsapp_group: ['සමූහ','එකතු','ගෲප්','ග්‍රූප්'],
-    about: ['අප','ගැන','සමාජය','මොකක්ද','කවුද'],
-    location: ['ලිපිනය','කොහෙද','ගම','ලිපින'],
-    purpose: ['අරමුණ','අරමුණු','ඉලක්ක'],
-    members: ['කීදෙනෙක්','සාමාජික'],
-    founder: ['හැදුවේ','නිර්මාණය','හදපු']
-  };
-  for(const key of order){
-    const words = siKeywords[key] || [];
-    for(const kw of words){
-      if(s.includes(kw)) return key;
-    }
-  }
-
-  return 'fallback';
-}
 
 /* ============================================================
    ⛔ ඊට පහළ වෙනස් කරන්න එපා
@@ -1289,6 +1257,7 @@ async function copyText(text, okMsg){
   }catch(e){ toast(t('copy_fail')); }
 }
 
+/* ---------- Theme ---------- */
 const themeBtn = $('#themeBtn');
 function applyTheme(theme){
   document.documentElement.dataset.theme = theme;
@@ -1303,6 +1272,7 @@ themeBtn.addEventListener('click', () => {
   if(navigator.vibrate) navigator.vibrate(10);
 });
 
+/* ---------- Language ---------- */
 const langBtn = $('#langBtn');
 function applyLang(lang){
   LANG = (lang === 'en') ? 'en' : 'si';
@@ -1327,13 +1297,19 @@ function applyLang(lang){
     document.documentElement.dataset.theme === 'dark' ? t('theme.light') : t('theme.dark'));
   $('#backTop').setAttribute('aria-label', t('top'));
 
-  const aiTitle = $('#aiTitle'), aiInput = $('#aiInput');
-  if(aiTitle) aiTitle.textContent = t('ai.title');
-  if(aiInput) aiInput.placeholder = t('ai.placeholder');
-  const aiStatus = $('#aiStatus');
-  if(aiStatus) aiStatus.textContent = t('ai.status');
+  // AI bot UI
+  const aiTitleEl2 = $('#aiTitle'), aiInputEl = $('#aiInput'), aiStatusEl2 = $('#aiStatus');
+  if(aiTitleEl2 && currentBot){
+    const nm = currentBot.name[LANG] || currentBot.name.si;
+    aiTitleEl2.textContent = (LANG === 'si' ? 'සිහින කැකුළු AI · ' : 'Sihina Kakulu AI · ') + nm;
+  }
+  if(aiInputEl) aiInputEl.placeholder = t('ai.placeholder');
+  if(aiStatusEl2) aiStatusEl2.textContent = t('ai.status');
   renderAIQuick();
   renderBotSelector();
+
+  // App banner text
+  updateAppBannerText();
 
   renderStats();
   renderCommittee();
@@ -1349,6 +1325,7 @@ langBtn.addEventListener('click', () => {
   if(navigator.vibrate) navigator.vibrate(10);
 });
 
+/* ---------- Menu ---------- */
 const menuBtn = $('#menuBtn'), mainNav = $('#mainNav');
 menuBtn.addEventListener('click', () => {
   const open = mainNav.classList.toggle('open');
@@ -1365,6 +1342,7 @@ mainNav.addEventListener('click', e => {
   }
 });
 
+/* ---------- Scroll ---------- */
 const progressBar = $('#progress'), backTop = $('#backTop');
 function onScroll(){
   const h = document.documentElement;
@@ -1379,6 +1357,7 @@ backTop.addEventListener('click', () => {
   if(navigator.vibrate) navigator.vibrate(10);
 });
 
+/* ---------- Nav spy ---------- */
 (function(){
   const links = $$('.nav-links a[href^="#"]');
   const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
@@ -1394,6 +1373,7 @@ backTop.addEventListener('click', () => {
   sections.forEach(s => spy.observe(s));
 })();
 
+/* ---------- Reveal ---------- */
 const revealObserver = ('IntersectionObserver' in window)
   ? new IntersectionObserver((entries, obs) => {
       entries.forEach(en => {
@@ -1408,6 +1388,7 @@ function watchReveal(scope){
   });
 }
 
+/* ---------- Rising dots ---------- */
 function createRisingDots(container){
   if(!container) return;
   const count = Number(container.dataset.dots) || 50;
@@ -1430,6 +1411,7 @@ function createRisingDots(container){
 }
 $$('.rising-dots').forEach(createRisingDots);
 
+/* ---------- Stats ---------- */
 function renderStats(){
   const items = [
     { n: MEMBERS_TOTAL,  label: t('stats.members'), icon: '👥' },
@@ -1466,19 +1448,31 @@ function renderStats(){
   }else{ counters.forEach(run); }
 }
 
+/* ---------- Committee ---------- */
 function renderCommittee(){
   $('#committeeGrid').innerHTML = COMMITTEE.map(p => {
     const name = p['name_' + LANG] || p.name_si;
     const role = ROLES[p.key] ? ROLES[p.key][LANG] : p.key;
+    const tel = normalizePhone(p.phone);
+    let actions = '';
+    if(tel){
+      const waNum = tel.replace('+','');
+      actions = '<div class="person-actions">' +
+        '<a class="person-btn call" href="tel:' + tel + '" aria-label="Call ' + escapeHtml(name) + '">📞</a>' +
+        '<a class="person-btn wa" href="https://wa.me/' + waNum + '" target="_blank" rel="noopener" aria-label="WhatsApp ' + escapeHtml(name) + '">💬</a>' +
+        '</div>';
+    }
     return '<div class="person reveal">' +
       '<span class="pi">' + p.icon + '</span>' +
       '<h4>' + escapeHtml(name) + '</h4>' +
       '<p>' + escapeHtml(role) + '</p>' +
+      actions +
     '</div>';
   }).join('');
   watchReveal($('#committeeGrid'));
 }
 
+/* ---------- Reports ---------- */
 function getFilteredReports(){
   const q = reportQuery.trim().toLowerCase();
   let items = REPORTS.map((r, i) => ({ r, i }));
@@ -1537,6 +1531,7 @@ $('#reportsList').addEventListener('click', e => {
   else copyText(url, t('share_copied'));
 });
 
+/* ---------- Gallery ---------- */
 function renderGallery(){
   const grid = $('#galleryGrid');
   const items = GALLERY.map((m, i) => ({ m, i }))
@@ -1582,6 +1577,7 @@ $('#galleryGrid').addEventListener('click', e => {
   openLightbox(Number(img.dataset.open));
 });
 
+/* ---------- Lightbox ---------- */
 function imageIndexes(){ return GALLERY.map((m, i) => (m.type === 'image' ? i : -1)).filter(i => i >= 0); }
 function openLightbox(index){
   if(!GALLERY[index] || GALLERY[index].type !== 'image') return;
@@ -1632,6 +1628,7 @@ document.addEventListener('keydown', e => {
   if(e.key === 'ArrowRight') stepLightbox(1);
 });
 
+/* ---------- Contact ---------- */
 function renderContact(){
   const phone = escapeHtml(CONTACT.phone);
   const whatsapp = escapeHtml(CONTACT.whatsapp);
@@ -1678,6 +1675,7 @@ $('#contactGrid').addEventListener('click', e => {
   copyText(btn.dataset.copy);
 });
 
+/* ---------- Form ---------- */
 (function(){
   const frame = $('#gformFrame'), link = $('#formOpen');
   frame.src = FORM_URL + '?embedded=true';
@@ -1685,21 +1683,20 @@ $('#contactGrid').addEventListener('click', e => {
 })();
 
 /* ============================================================
-   🤖 AI CHATBOT — 5 BOTS
+   🤖 AI CHATBOT
    ============================================================ */
 const aiFab = $('#aiFab'), aiChat = $('#aiChat'), aiMessages = $('#aiMessages'),
       aiInput = $('#aiInput'), aiSend = $('#aiSend'), aiClose = $('#aiClose'),
       aiQuick = $('#aiQuick'), aiBots = $('#aiBots'), aiTitleEl = $('#aiTitle'),
-      aiAvatar = $('#aiAvatar');
+      aiAvatar = $('#aiAvatar'), aiStatusEl = $('#aiStatus');
 let currentBot = BOTS[0];
 let aiStarted = false;
 let aiBusy = false;
 
-/* ---------------- Bot selector ---------------- */
 function renderBotSelector(){
   if(!aiBots) return;
   aiBots.innerHTML = BOTS.map(b => {
-    const nm = (b.name[LANG] || b.name.si || b.id);
+    const nm = b.name[LANG] || b.name.si;
     const active = currentBot && currentBot.id === b.id ? ' active' : '';
     return '<button type="button" class="ai-bot-chip' + active + '" data-bot="' + b.id + '" role="tab" aria-selected="' + (active ? 'true' : 'false') + '">' +
       '<span class="ic">' + b.icon + '</span>' +
@@ -1708,88 +1705,54 @@ function renderBotSelector(){
   }).join('');
 }
 
-aiBots.addEventListener('click', e => {
-  const btn = e.target.closest('[data-bot]');
-  if(!btn) return;
-  const bot = BOTS.find(b => b.id === btn.dataset.bot);
-  if(!bot || bot.id === currentBot.id) return;
-  currentBot = bot;
-  // Reset chat with new bot's greeting
-  aiStarted = false;
-  aiMessages.innerHTML = '';
-  updateBotHeader();
-  renderBotSelector();
-  openAIChat();
-  if(navigator.vibrate) navigator.vibrate(10);
-});
-
 function updateBotHeader(){
   if(!currentBot) return;
   const nm = currentBot.name[LANG] || currentBot.name.si;
   if(aiTitleEl) aiTitleEl.textContent = (LANG === 'si' ? 'සිහින කැකුළු AI · ' : 'Sihina Kakulu AI · ') + nm;
   if(aiAvatar) aiAvatar.textContent = currentBot.icon;
-  if(aiFab) aiFab.innerHTML = currentBot.icon + '<span class="ai-badge">AI</span>';
+  if(aiFab && !aiChat.classList.contains('open')) aiFab.innerHTML = currentBot.icon + '<span class="ai-badge">AI</span>';
 }
 
-/* ---------------- Message rendering ---------------- */
 function aiAppend(role, text){
   const div = document.createElement('div');
   div.className = 'ai-msg ' + role;
-  const html = escapeHtml(text).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-  div.innerHTML = html;
+  div.innerHTML = escapeHtml(text).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
   aiMessages.appendChild(div);
   aiMessages.scrollTop = aiMessages.scrollHeight;
   return div;
 }
-
 function aiTyping(){
-  const t = document.createElement('div');
-  t.className = 'ai-typing';
-  t.innerHTML = '<span></span><span></span><span></span>';
-  aiMessages.appendChild(t);
+  const tp = document.createElement('div');
+  tp.className = 'ai-typing';
+  tp.innerHTML = '<span></span><span></span><span></span>';
+  aiMessages.appendChild(tp);
   aiMessages.scrollTop = aiMessages.scrollHeight;
-  return t;
+  return tp;
 }
-
-/* ---------------- Core reply ---------------- */
 function generateReply(text){
-  const data = aiData();
-  const mode = detectMode(text); // si | en | singlish
-  const lang = mode === 'si' ? 'si' : (mode === 'singlish' ? 'singlish' : 'en');
+  const mode = detectMode(text);
+  const replyLang = mode === 'si' ? 'si' : (mode === 'singlish' ? 'singlish' : (LANG === 'si' ? 'si' : 'en'));
   const intent = detectIntent(text);
-
-  const fallbackLang = mode === 'si' ? 'si' : (mode === 'singlish' ? 'singlish' : (LANG === 'si' ? 'si' : 'en'));
-  const botScope = currentBot ? (currentBot.scope || BOT_DEFAULT_SCOPE) : BOT_DEFAULT_SCOPE;
-
-  let key = intent;
-  if (key === 'fallback') {
-    return AI_RESPONSES.fallback[fallbackLang] || AI_RESPONSES.fallback.en;
+  const data = aiData();
+  const scope = currentBot && currentBot.scope;
+  if(intent === 'fallback'){
+    return AI_RESPONSES.fallback[replyLang] || AI_RESPONSES.fallback.en;
   }
-
-  // Bot scope check
-  if (!botScope.includes(key)) {
-    // Bot doesn't do this — point user to general bot
-    const botName = currentBot ? (currentBot.name[lang] || currentBot.name.si) : '';
-    if (mode === 'si') {
-      return `මට ඒක ගැන දැනුමක් නැහැ 😅 (මම ${botName} bot).\n\nකරුණාකර 🤖 General bot එක තෝරන්න හෝ වෙනත් දෙයක් අහන්න.`;
-    } else if (mode === 'singlish') {
-      return `Mata eka gana danumak na 😅 (Mama ${botName} bot).\n\nKarunakara 🤖 General bot eka thoranna or wenath deyak ahanna.`;
-    } else {
-      return `That's outside my area 😅 (I'm the ${botName} bot).\n\nPlease pick the 🤖 General bot or ask something else.`;
-    }
+  if(scope && !scope.includes(intent)){
+    const bn = currentBot.name[replyLang] || currentBot.name.si;
+    if(replyLang === 'si') return `මට ඒක ගැන දැනුමක් නෑ 😅 (මම ${bn} bot).\n\n🤖 General bot එක තෝරන්න හෝ වෙනත් දෙයක් අහන්න.`;
+    if(replyLang === 'singlish') return `Mata eka gana danumak na 😅 (Mama ${bn} bot).\n\n🤖 General bot eka thoranna or wenath deyak ahanna.`;
+    return `That's outside my area 😅 (I'm the ${bn} bot).\n\nPick 🤖 General bot or ask something else.`;
   }
-
-  const generator = AI_RESPONSES[key];
-  if (!generator) return AI_RESPONSES.fallback[fallbackLang] || AI_RESPONSES.fallback.en;
-  const fn = generator[lang] || generator.en || generator.si;
-  if (typeof fn !== 'function') return AI_RESPONSES.fallback[fallbackLang] || AI_RESPONSES.fallback.en;
-  return fn(data);
+  const gen = AI_RESPONSES[intent];
+  if(!gen) return AI_RESPONSES.fallback[replyLang] || AI_RESPONSES.fallback.en;
+  const fn = gen[replyLang] || gen.en || gen.si;
+  return typeof fn === 'function' ? fn(data) : (AI_RESPONSES.fallback[replyLang] || AI_RESPONSES.fallback.en);
 }
-
 function aiReply(userText){
-  if (aiBusy) return;
+  if(aiBusy) return;
   aiBusy = true;
-  if (userText) aiAppend('user', userText);
+  if(userText) aiAppend('user', userText);
   const typing = aiTyping();
   const delay = 500 + Math.min(1100, String(userText || '').length * 22);
   setTimeout(() => {
@@ -1798,78 +1761,109 @@ function aiReply(userText){
     aiBusy = false;
   }, delay);
 }
-
-/* ---------------- Quick chips ---------------- */
 function renderAIQuick(){
-  if (!aiQuick) return;
+  if(!aiQuick) return;
   const items = [
-    { k: 'ai.quick.reports', si: 'වාර්තා', en: 'reports', singlish: 'reports monawada' },
-    { k: 'ai.quick.contact', si: 'සම්බන්ධතා', en: 'contact', singlish: 'contact denna' },
-    { k: 'ai.quick.committee', si: 'කමිටුව', en: 'committee', singlish: 'committee kawuda' },
-    { k: 'ai.quick.donate', si: 'ආධාර', en: 'donate', singlish: 'adara kohomada' },
-    { k: 'ai.quick.gallery', si: 'ගැලරිය', en: 'gallery', singlish: 'gallery balanna' },
-    { k: 'ai.quick.whatsapp', si: 'whatsapp', en: 'whatsapp', singlish: 'whatsapp group' }
+    { k: 'ai.quick.reports',   si: 'වාර්තා',      en: 'reports',           singlish: 'reports monawada' },
+    { k: 'ai.quick.contact',   si: 'සම්බන්ධතා',  en: 'contact',           singlish: 'contact denna' },
+    { k: 'ai.quick.committee', si: 'කමිටුව',      en: 'committee',         singlish: 'committee kawuda' },
+    { k: 'ai.quick.donate',    si: 'ආධාර',        en: 'donate',            singlish: 'adara kohomada' },
+    { k: 'ai.quick.gallery',   si: 'ගැලරිය',      en: 'gallery',           singlish: 'gallery balanna' },
+    { k: 'ai.quick.whatsapp',  si: 'WhatsApp',    en: 'WhatsApp',          singlish: 'whatsapp group' }
   ];
   aiQuick.innerHTML = items.map(i => {
     const q = i[LANG] || i.si;
-    return '<button type="button" data-ai-q="' + escapeHtml(q) + '">' + escapeHtml(t(i.k)) + '</button>';
+    const label = I18N[LANG][i.k] || (i[LANG] || i.si);
+    return '<button type="button" data-ai-q="' + escapeHtml(q) + '">' + escapeHtml(label) + '</button>';
   }).join('');
 }
-
-/* ---------------- Open / close ---------------- */
 function openAIChat(){
   aiChat.classList.add('open');
   aiFab.classList.add('open');
   aiFab.innerHTML = '✕';
-  aiFab.setAttribute('aria-label', LANG === 'si' ? 'වසන්න' : 'Close');
   updateBotHeader();
-  if (!aiStarted){
+  if(!aiStarted){
     aiStarted = true;
     setTimeout(() => {
       const typing = aiTyping();
       setTimeout(() => {
         typing.remove();
-        const greetFn = currentBot.welcome[LANG] || currentBot.welcome.si || currentBot.welcome.en;
-        if (typeof greetFn === 'function') aiAppend('bot', greetFn(aiData()));
+        const wFn = currentBot.welcome[LANG] || currentBot.welcome.si || currentBot.welcome.en;
+        if(typeof wFn === 'function') aiAppend('bot', wFn(aiData()));
       }, 700);
     }, 250);
   }
   setTimeout(() => aiInput && aiInput.focus(), 400);
 }
-
 function closeAIChat(){
   aiChat.classList.remove('open');
   aiFab.classList.remove('open');
   aiFab.innerHTML = (currentBot ? currentBot.icon : '🤖') + '<span class="ai-badge">AI</span>';
-  aiFab.setAttribute('aria-label', 'AI Assistant');
 }
 
 aiFab.addEventListener('click', () => {
-  if (aiChat.classList.contains('open')) closeAIChat();
-  else openAIChat();
-  if (navigator.vibrate) navigator.vibrate(10);
+  if(aiChat.classList.contains('open')) closeAIChat(); else openAIChat();
+  if(navigator.vibrate) navigator.vibrate(10);
 });
 aiClose.addEventListener('click', closeAIChat);
-
 aiSend.addEventListener('click', () => {
-  const v = aiInput.value.trim();
-  if (!v) return;
-  aiInput.value = '';
-  aiReply(v);
+  const v = aiInput.value.trim(); if(!v) return;
+  aiInput.value = ''; aiReply(v);
 });
 aiInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter'){
-    const v = aiInput.value.trim();
-    if (!v) return;
-    aiInput.value = '';
-    aiReply(v);
-  }
+  if(e.key === 'Enter'){ const v = aiInput.value.trim(); if(!v) return; aiInput.value = ''; aiReply(v); }
 });
 aiQuick.addEventListener('click', e => {
-  const btn = e.target.closest('[data-ai-q]');
-  if (!btn) return;
+  const btn = e.target.closest('[data-ai-q]'); if(!btn) return;
   aiReply(btn.dataset.aiQ);
 });
+aiBots.addEventListener('click', e => {
+  const btn = e.target.closest('[data-bot]'); if(!btn) return;
+  const bot = BOTS.find(b => b.id === btn.dataset.bot);
+  if(!bot || (currentBot && bot.id === currentBot.id)) return;
+  currentBot = bot;
+  aiStarted = false;
+  aiMessages.innerHTML = '';
+  updateBotHeader();
+  renderBotSelector();
+  openAIChat();
+  if(navigator.vibrate) navigator.vibrate(10);
+});
+
+/* ============================================================
+   📲 APP BANNER
+   ============================================================ */
+const appBanner = $('#appBanner'), appBannerClose = $('#appBannerClose'),
+      appBannerBtn = $('#appBannerBtn');
+
+function updateAppBannerText(){
+  if(!appBanner) return;
+  const tt = $('#appBannerTitle'), tx = $('#appBannerText');
+  if(tt) tt.textContent = t('app.banner.title');
+  if(tx) tx.textContent = t('app.banner.text');
+  if(appBannerBtn) appBannerBtn.textContent = t('app.banner.btn');
+}
+
+function showAppBanner(){
+  if(!appBanner) return;
+  if(localStorage.getItem('sk-banner-dismissed') === '1') return;
+  setTimeout(() => appBanner.classList.add('show'), 2500);
+}
+if(appBannerClose){
+  appBannerClose.addEventListener('click', () => {
+    appBanner.classList.remove('show');
+    try { localStorage.setItem('sk-banner-dismissed', '1'); } catch(e){}
+    setTimeout(() => appBanner.classList.add('hidden'), 600);
+  });
+}
+if(appBannerBtn){
+  appBannerBtn.addEventListener('click', () => {
+    const installBtn = $('#installBtn');
+    if(installBtn) installBtn.click();
+    appBanner.classList.remove('show');
+    try { localStorage.setItem('sk-banner-dismissed', '1'); } catch(e){}
+  });
+}
 
 /* ============================================================
    🔔 NOTIFICATIONS
@@ -1878,43 +1872,32 @@ let swRegistration = null;
 function initNotifications(){
   const notifBtn = $('#notifBtn');
   if(!('Notification' in window) || !('serviceWorker' in navigator)){
-    notifBtn.style.display = 'none';
+    if(notifBtn) notifBtn.style.display = 'none';
     return;
   }
-  // Show button
   notifBtn.classList.add('show');
-
   function updateNotifBtn(){
     if(Notification.permission === 'granted'){
       notifBtn.classList.add('granted');
       notifBtn.classList.remove('denied');
       notifBtn.textContent = '🔔';
       notifBtn.title = t('notif.granted');
-      notifBtn.setAttribute('aria-label', t('notif.granted'));
     } else if(Notification.permission === 'denied'){
       notifBtn.classList.add('denied');
       notifBtn.classList.remove('granted');
       notifBtn.textContent = '🔕';
       notifBtn.title = t('notif.denied');
-      notifBtn.setAttribute('aria-label', t('notif.denied'));
     } else {
-      notifBtn.classList.remove('granted','denied');
+      notifBtn.classList.remove('granted', 'denied');
       notifBtn.textContent = '🔔';
       notifBtn.title = t('notif.aria');
-      notifBtn.setAttribute('aria-label', t('notif.aria'));
     }
   }
   updateNotifBtn();
-
   notifBtn.addEventListener('click', async () => {
     if(navigator.vibrate) navigator.vibrate(10);
     if(Notification.permission === 'granted'){
-      // Send a test notification
-      sendNotification(
-        t('ai.title'),
-        LANG === 'si' ? t('notif.test') : '🔔 Notification test! Sihina Kakulu App notifications are working ✨',
-        'logo.png'
-      );
+      sendNotification(t('ai.title'), t('notif.test'), 'logo.png');
       toast(LANG === 'si' ? '🔔 Test notification එව්වා!' : '🔔 Test notification sent!');
       return;
     }
@@ -1922,83 +1905,45 @@ function initNotifications(){
       const perm = await Notification.requestPermission();
       updateNotifBtn();
       if(perm === 'granted'){
-        sendNotification(
-          t('brand'),
-          t('notif.welcome'),
-          'logo.png'
-        );
+        sendNotification(t('brand'), t('notif.welcome'), 'logo.png');
         toast(LANG === 'si' ? '✅ Notifications සක්‍රීය විය!' : '✅ Notifications enabled!');
-      } else if(perm === 'denied'){
-        toast(LANG === 'si' ? '❌ Notifications block විය' : '❌ Notifications blocked');
       }
-    } catch(e){
-      toast(LANG === 'si' ? 'Notifications සක්‍රීය කළ නොහැක' : 'Could not enable notifications');
-    }
+    } catch(e){ toast(LANG === 'si' ? 'Notifications සක්‍රීය කළ නොහැක' : 'Could not enable notifications'); }
   });
-
-  // Schedule local "report reminder" (demo of local notifications)
-  setInterval(() => {
-    if(Notification.permission === 'granted' && !document.hidden && Math.random() < 0.05){
-      sendNotification(t('brand'), t('notif.tip'), 'logo.png', '#reports');
-    }
-  }, 60000);
 }
-
-async function sendNotification(title, body, iconUrl, url){
+async function sendNotification(title, body, iconUrl){
   if(!('Notification' in window) || Notification.permission !== 'granted') return;
   try {
     if(swRegistration && swRegistration.showNotification){
       await swRegistration.showNotification(title, {
-        body: body,
-        icon: iconUrl || 'logo.png',
-        badge: iconUrl || 'logo.png',
-        vibrate: [100, 50, 100],
-        tag: 'sk-notif',
-        data: { url: url || location.href }
+        body, icon: iconUrl || 'logo.png', badge: iconUrl || 'logo.png',
+        vibrate: [100, 50, 100], tag: 'sk-notif', data: { url: location.href }
       });
       return;
     }
-    new Notification(title, {
-      body: body,
-      icon: iconUrl || 'logo.png',
-      badge: iconUrl || 'logo.png'
-    });
-  } catch(e){
-    try { new Notification(title, { body: body }); } catch(_){}
-  }
+    new Notification(title, { body, icon: iconUrl || 'logo.png' });
+  } catch(e){ try { new Notification(title, { body }); } catch(_){} }
 }
 
 /* ============================================================
-   📲 PWA SETUP — with logo + install + SW
+   📲 PWA SETUP
    ============================================================ */
 async function loadLogoDataUrl(){
-  // Try to load logo.png and convert to data URL
   try {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = 'logo.png';
-    await new Promise((res, rej) => {
-      img.onload = res;
-      img.onerror = rej;
-      setTimeout(rej, 2500);
-    });
-    // Resize to 512x512
+    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; setTimeout(rej, 2500); });
     const size = 512;
     const canvas = document.createElement('canvas');
     canvas.width = size; canvas.height = size;
     const ctx = canvas.getContext('2d');
-    // White background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, size, size);
-    // Fit image centered
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, size, size);
     const ratio = Math.min(size / img.width, size / img.height);
-    const w = img.width * ratio;
-    const h = img.height * ratio;
+    const w = img.width * ratio, h = img.height * ratio;
     ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
     return canvas.toDataURL('image/png');
-  } catch(e){
-    return null;
-  }
+  } catch(e){ return null; }
 }
 
 function getFallbackIconDataUrl(){
@@ -2025,91 +1970,61 @@ async function setupPWA(){
   const installBtn = $('#installBtn');
   let deferredPrompt = null;
 
-  // Get best icon
   let iconDataUrl = await loadLogoDataUrl();
   if(!iconDataUrl) iconDataUrl = getFallbackIconDataUrl();
 
-  // Build manifest
+  const bannerIcon = $('#appBannerIcon');
+  if(bannerIcon && iconDataUrl.startsWith('data:image/png')){
+    bannerIcon.innerHTML = '<img src="' + iconDataUrl + '" alt="Logo">';
+  }
+
   const manifest = {
     name: "සිහින කැකුළු ළමා සමාජය",
     short_name: "සිහින කැකුළු",
     description: "Sihina Kakulu Children's Society — Thirivanaketiya",
-    start_url: "./",
-    scope: "./",
-    display: "standalone",
-    orientation: "portrait",
-    background_color: "#fffafc",
-    theme_color: "#7b155d",
-    lang: "si",
+    start_url: "./", scope: "./", display: "standalone", orientation: "portrait",
+    background_color: "#fffafc", theme_color: "#7b155d", lang: "si",
     icons: [
       { src: iconDataUrl, sizes: "192x192", type: iconDataUrl.startsWith('data:image/png') ? 'image/png' : 'image/svg+xml', purpose: "any" },
       { src: iconDataUrl, sizes: "512x512", type: iconDataUrl.startsWith('data:image/png') ? 'image/png' : 'image/svg+xml', purpose: "any" },
       { src: iconDataUrl, sizes: "512x512", type: iconDataUrl.startsWith('data:image/png') ? 'image/png' : 'image/svg+xml', purpose: "maskable" }
-    ],
-    shortcuts: [
-      { name: "Reports", url: "./#reports", icons: [{ src: iconDataUrl, sizes: "192x192" }] },
-      { name: "Gallery", url: "./#gallery", icons: [{ src: iconDataUrl, sizes: "192x192" }] },
-      { name: "Contact", url: "./#contact", icons: [{ src: iconDataUrl, sizes: "192x192" }] }
     ]
   };
-
   try {
     const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
     const manifestUrl = URL.createObjectURL(manifestBlob);
     let link = document.querySelector('link[rel="manifest"]');
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'manifest';
-      document.head.appendChild(link);
-    }
+    if (!link) { link = document.createElement('link'); link.rel = 'manifest'; document.head.appendChild(link); }
     link.href = manifestUrl;
   } catch(e){}
 
-  // Apple touch icon
   try {
     const appleIcon = document.createElement('link');
-    appleIcon.rel = 'apple-touch-icon';
-    appleIcon.href = iconDataUrl;
+    appleIcon.rel = 'apple-touch-icon'; appleIcon.href = iconDataUrl;
     document.head.appendChild(appleIcon);
-
-    const appleIconPre = document.createElement('link');
-    appleIconPre.rel = 'apple-touch-icon-precomposed';
-    appleIconPre.href = iconDataUrl;
-    document.head.appendChild(appleIconPre);
   } catch(e){}
 
-  // Service worker
   if ('serviceWorker' in navigator) {
     const swCode = `
-      const CACHE = 'sk-v3';
-      const ASSETS = ['./', './index.html'];
+      const CACHE = 'sk-v4';
       self.addEventListener('install', e => {
-        e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(()=>{})).then(()=>self.skipWaiting()));
+        e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./']).catch(()=>{})).then(()=>self.skipWaiting()));
       });
       self.addEventListener('activate', e => {
         e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(()=>self.clients.claim()));
       });
       self.addEventListener('fetch', e => {
         if (e.request.method !== 'GET') return;
-        e.respondWith(
-          caches.match(e.request).then(cached => {
-            if (cached) return cached;
-            return fetch(e.request).then(res => {
-              if (res && res.status === 200 && res.type === 'basic') {
-                const clone = res.clone();
-                caches.open(CACHE).then(c => c.put(e.request, clone)).catch(()=>{});
-              }
-              return res;
-            }).catch(() => cached);
-          })
-        );
+        e.respondWith(caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
+          if (res && res.status === 200 && res.type === 'basic') { const c = res.clone(); caches.open(CACHE).then(cc => cc.put(e.request, c)).catch(()=>{}); }
+          return res;
+        }).catch(() => cached)));
       });
       self.addEventListener('notificationclick', e => {
         e.notification.close();
-        const url = (e.notification.data && e.notification.data.url) || './';
         e.waitUntil(clients.matchAll({ type: 'window' }).then(list => {
           for (const c of list) { if (c.url.includes(location.origin) && 'focus' in c) return c.focus(); }
-          if (clients.openWindow) return clients.openWindow(url);
+          if (clients.openWindow) return clients.openWindow(location.origin);
         }));
       });
     `;
@@ -2124,48 +2039,33 @@ async function setupPWA(){
     installBtn.style.display = 'inline-flex';
     installBtn.classList.add('show');
   }
-
   window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInstallBtn();
+    e.preventDefault(); deferredPrompt = e; showInstallBtn();
   });
-
   showInstallBtn();
 
   installBtn.addEventListener('click', async () => {
-    if (navigator.vibrate) navigator.vibrate(10);
-    if (deferredPrompt) {
+    if(navigator.vibrate) navigator.vibrate(10);
+    if(deferredPrompt){
       try {
         deferredPrompt.prompt();
         const choice = await deferredPrompt.userChoice;
-        if (choice.outcome === 'accepted') {
-          installBtn.style.display = 'none';
-          toast(LANG === 'si' ? '✅ App එක install වෙමින්...' : '✅ Installing app...');
-        }
+        if(choice.outcome === 'accepted'){ installBtn.style.display = 'none'; toast(LANG === 'si' ? '✅ App install වෙමින්...' : '✅ Installing app...'); }
         deferredPrompt = null;
-      } catch(e) {
-        showInstallInstructions();
-      }
-    } else {
-      showInstallInstructions();
-    }
+      } catch(e){ showInstallInstructions(); }
+    } else { showInstallInstructions(); }
   });
 
   function showInstallInstructions(){
-    if (!aiChat.classList.contains('open')) openAIChat();
-    setTimeout(() => {
-      aiAppend('bot', t('ai.install.instructions'));
-    }, 400);
+    if(!aiChat.classList.contains('open')) openAIChat();
+    setTimeout(() => { aiAppend('bot', t('app.install.instructions')); }, 400);
   }
 
   window.addEventListener('appinstalled', () => {
     installBtn.style.display = 'none';
     deferredPrompt = null;
     toast(LANG === 'si' ? '✅ App එක install විය!' : '✅ App installed!');
-    if(Notification.permission === 'granted'){
-      sendNotification(t('brand'), t('notif.welcome'), 'logo.png');
-    }
+    if(Notification.permission === 'granted') sendNotification(t('brand'), t('notif.welcome'), 'logo.png');
   });
 }
 
@@ -2177,17 +2077,14 @@ async function setupPWA(){
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   if(!ctx) return;
-
   const hero = document.querySelector('.hero') || canvas.parentElement;
   let w = 0, h = 0, dpr = 1;
   let drops = [];
   let running = true;
-
   const PALETTE = [
     { h: 320, s: 80, l: 60 }, { h: 285, s: 70, l: 65 },
     { h: 200, s: 80, l: 60 }, { h: 150, s: 70, l: 55 }, { h: 35, s: 90, l: 65 }
   ];
-
   function resize(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     const rect = hero.getBoundingClientRect();
@@ -2240,13 +2137,11 @@ async function setupPWA(){
     requestAnimationFrame(draw);
   }
   start();
-
   let timer;
   window.addEventListener('resize', () => {
     clearTimeout(timer);
     timer = setTimeout(() => { resize(); populate(); }, 200);
   }, { passive: true });
-
   document.addEventListener('visibilitychange', () => {
     if(document.hidden){ running = false; }
     else if(!running){ running = true; requestAnimationFrame(draw); }
@@ -2257,7 +2152,7 @@ async function setupPWA(){
    ✨ TOUCH — ripple
    ============================================================ */
 document.addEventListener('pointerdown', e => {
-  const target = e.target.closest('.btn, .chip, .icon-btn, .nav-links a, .lb-btn, #backTop, .ai-fab, .ai-quick button, .ai-input-row button, .ai-close, .ai-bot-chip');
+  const target = e.target.closest('.btn, .chip, .icon-btn, .nav-links a, .lb-btn, #backTop, .ai-fab, .ai-quick button, .ai-input-row button, .ai-close, .ai-bot-chip, .app-banner-btn');
   if(!target) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const rect = target.getBoundingClientRect();
@@ -2288,14 +2183,14 @@ document.addEventListener('touchstart', e => {
   applyLang(savedLang || 'si');
   watchReveal(document);
 
-  // Set default bot
   currentBot = BOTS[0];
   renderBotSelector();
   updateBotHeader();
+  renderAIQuick();
 
-  // PWA + notifications
   await setupPWA();
   initNotifications();
+  showAppBanner();
 })();
 </script>
 </body>
